@@ -37,6 +37,18 @@ def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_ins
     connection.commit()
 
 
+def get_product_id_from_db(cursor: sqlite3.Cursor, product_id):
+    product_id = "'" + product_id + "'"
+    result = cursor.execute(f'SELECT product_id FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
+    for row in result:
+        result = row[0]
+    product_id = product_id.replace("'", "")
+    if result != product_id:
+        return 0
+    else:
+        return 1
+
+
 def get_product_info(cursor: sqlite3.Cursor, connection):
     product_id = input("Please enter the product ID you'd like to view")
     is_error = typechecking.is_product_id_formatted_correctly(product_id)
