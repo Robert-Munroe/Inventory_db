@@ -1,6 +1,6 @@
 import sqlite3
 import entrybuilder
-import gui
+import gui_windows
 
 
 def open_db(filename: str) -> tuple[sqlite3.Connection, sqlite3.Cursor]:
@@ -47,6 +47,8 @@ def get_product_id_from_db(cursor: sqlite3.Cursor, product_id):
 def get_product_info(cursor: sqlite3.Cursor, connection):
     product_info = []
     product_id = entrybuilder.ask_for_product_id_allow_duplicate()
+    if product_id is None:
+        return
     product_id = "'" + product_id + "'"
     result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
     if not result:
@@ -63,9 +65,13 @@ def get_product_info(cursor: sqlite3.Cursor, connection):
 
 def update_description(cursor: sqlite3.Cursor, connection):
     product_id = entrybuilder.ask_for_product_id_allow_duplicate()
+    if product_id is None:
+        gui_windows.pop_up_window("Error", "FSG ID")
+        return
     product_id = "'" + product_id + "'"
-    new_description = gui.get_change_description()
-    if new_description == "error" or new_description == "":
+    new_description = gui_windows.get_change_description()
+    if new_description is None or new_description == "":
+        gui_windows.pop_up_window("Error", "Description")
         return
     new_description = "'" + new_description + "'"
     cursor.execute(f'UPDATE founders_inventory SET description = {new_description} WHERE product_id = {product_id}')
@@ -74,12 +80,14 @@ def update_description(cursor: sqlite3.Cursor, connection):
 
 def update_holding(cursor: sqlite3.Cursor, connection):
     product_id = entrybuilder.ask_for_product_id_allow_duplicate()
-    product_id = "'" + product_id + "'"
-    new_holding_location = gui.get_change_holding_location()
-
-    if new_holding_location == "error" or new_holding_location == "":
+    if product_id is None:
+        gui_windows.pop_up_window("Error", "FSG ID")
         return
-
+    product_id = "'" + product_id + "'"
+    new_holding_location = gui_windows.get_change_holding_location()
+    if new_holding_location is None or new_holding_location == "":
+        gui_windows.pop_up_window("Error", "Storage Location")
+        return
     new_holding_location = "'" + new_holding_location + "'"
     cursor.execute(f'UPDATE founders_inventory SET holding_location = {new_holding_location}'
                    f'WHERE product_id = {product_id}')
