@@ -2,6 +2,7 @@ import sqlite3
 import entrybuilder
 import gui
 
+#edit
 
 def open_db(filename: str) -> tuple[sqlite3.Connection, sqlite3.Cursor]:
     db_connection = sqlite3.connect(filename)  # connect to existing DB or create new one
