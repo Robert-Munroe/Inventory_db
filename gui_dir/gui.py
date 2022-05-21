@@ -1,8 +1,7 @@
 import PySimpleGUI as simpleGui
-import database
-import gui_windows
-import layouts
-import typechecking
+from gui_dir import layouts, gui_windows
+from database_dir import database
+from helper_functions import typechecking
 
 
 def main_window():
@@ -26,7 +25,7 @@ def main_window():
 
 
 def add_entry_button():
-    connection, db_cursor = database.open_db("foundersinventorydb.sqlite")
+    connection, db_cursor = database.open_db("database_dir/foundersinventorydb.sqlite")
     product_id, general_id, holding_location, description = gui_windows.get_entry_details()
 
     is_error = typechecking.is_product_id_formatted_correctly(product_id)
@@ -49,16 +48,16 @@ def add_entry_button():
 
 
 def view_a_sample_button():
-    connection, db_cursor = database.open_db("foundersinventorydb.sqlite")
+    connection, db_cursor = database.open_db("database_dir/foundersinventorydb.sqlite")
     product_info = database.get_product_info(db_cursor, connection)
     gui_windows.view_a_sample_window(product_info)
 
 
 def update_a_description_button():
-    connection, db_cursor = database.open_db("foundersinventorydb.sqlite")
+    connection, db_cursor = database.open_db("database_dir/foundersinventorydb.sqlite")
     database.update_description(db_cursor, connection)
 
 
 def update_a_holding_location_button():
-    connection, db_cursor = database.open_db("foundersinventorydb.sqlite")
+    connection, db_cursor = database.open_db("database_dir/foundersinventorydb.sqlite")
     database.update_holding(db_cursor, connection)

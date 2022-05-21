@@ -1,6 +1,6 @@
 import sqlite3
-import entrybuilder
-import gui_windows
+from helper_functions import entrybuilder
+from gui_dir import gui_windows
 
 
 def open_db(filename: str) -> tuple[sqlite3.Connection, sqlite3.Cursor]:

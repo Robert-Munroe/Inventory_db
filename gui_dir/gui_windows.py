@@ -1,5 +1,5 @@
 import PySimpleGUI as simpleGui
-import layouts
+from gui_dir import layouts
 
 
 def pop_up_window(window_type, attribute):

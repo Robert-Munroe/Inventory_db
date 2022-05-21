@@ -1,5 +1,5 @@
 import re
-import database
+from database_dir import database
 
 
 def is_product_date_formatted_correctly(date):
@@ -18,7 +18,7 @@ def is_product_date_formatted_correctly(date):
 
 
 def is_product_id_formatted_correctly(product_id):
-    connection, db_cursor = database.open_db("foundersinventorydb.sqlite")
+    connection, db_cursor = database.open_db("../database_dir/foundersinventorydb.sqlite")
     if type(product_id) == str:
         match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", product_id)
         is_match = bool(match)

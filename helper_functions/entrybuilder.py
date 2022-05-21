@@ -1,5 +1,5 @@
-import typechecking
-import gui_windows
+from helper_functions import typechecking
+from gui_dir import gui_windows
 
 
 def ask_for_product_id_allow_duplicate():
