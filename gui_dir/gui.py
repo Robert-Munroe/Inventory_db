@@ -31,8 +31,8 @@ def add_entry_button():
 
     is_error = typechecking.is_product_id_formatted_correctly(product_id)
 
-    if is_error == 1 or general_id == "" or holding_location == "" or description == "" or quantity == ""\
-            or aggregate_form == "":
+    if is_error == 1 or (general_id or holding_location or description or quantity or aggregate_form == "") \
+            or aggregate_form != ('g' or 'ml' or 'container(s)' or 'bag(s)' or 'vial(s)'):
         error_list = []
         if is_error == 1:
             error_list.append(1)
@@ -44,7 +44,7 @@ def add_entry_button():
             error_list.append(4)
         if quantity == "":
             error_list.append(5)
-        if aggregate_form == "":
+        if aggregate_form == "" or aggregate_form != ('g' or 'ml' or 'container(s)' or 'bag(s)' or 'vial(s)'):
             error_list.append(6)
         gui_windows.invalid_entry_window(error_list)
         return

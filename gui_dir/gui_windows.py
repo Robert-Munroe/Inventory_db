@@ -62,6 +62,8 @@ def invalid_entry_window(error_list):
             error_text = error_text + "container description is blank "
         if error_list[i] == 5:
             error_text = error_text + "product's contents are not set "
+        if error_list[i] == 6:
+            error_text = error_text + "product's units are invalid or not set"
 
     layout = [
         [simpleGui.Text("The entry was invalid and has not been added to the database")],

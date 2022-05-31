@@ -14,6 +14,7 @@ def layout_main_window():
 
 
 def layout_entry_details():
+    unit_option = ['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)']
     layout = [
         [simpleGui.Text("Please enter an FSG ID")],
         [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText()],
@@ -23,10 +24,11 @@ def layout_entry_details():
         [simpleGui.Text("Storage Location:", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Please enter a describe the container")],
         [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Text("Please enter the product's quantity")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Text("Please enter an aggregate form")],
-        [simpleGui.Text("Aggregate form: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter the product's quantity and unit")],
+        [simpleGui.Text("Quantity: X Unit: Y: ", size=(15, 1)), simpleGui.InputText(),
+         simpleGui.Combo(['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)'], default_value='Unit')],
+        # [simpleGui.Text("Please enter an aggregate form")],
+        # [simpleGui.Text("Aggregate form: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
