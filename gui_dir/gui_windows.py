@@ -22,24 +22,31 @@ def get_entry_details():
         event, values = window.read()
         if event == "Cancel":
             window.close()
-            product_id = "error"
-            general_id = ""
-            holding_location = ""
-            description = ""
-            return product_id, general_id, holding_location, description
+            fsg_id = "error"
+            product_id = ""
+            storage_location = ""
+            container_description = ""
+            quantity = ""
+            aggregate_form = ""
+            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
         if event == "Submit":
-            product_id = values[0]
-            general_id = values[1]
-            holding_location = values[2]
-            description = values[3]
+            fsg_id = values[0]
+            fsg_id = fsg_id.replace("s", "S")
+            product_id = values[1]
+            storage_location = values[2]
+            container_description = values[3]
+            quantity = values[4]
+            aggregate_form = values[5]
             window.close()
-            return product_id, general_id, holding_location, description
-        product_id = "error"
-        general_id = ""
-        holding_location = ""
-        description = ""
+            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
+        fsg_id = "error"
+        product_id = ""
+        storage_location = ""
+        container_description = ""
+        quantity = ""
+        aggregate_form = ""
         window.close()
-        return product_id, general_id, holding_location, description
+        return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
 
 
 def invalid_entry_window(error_list):
@@ -53,6 +60,8 @@ def invalid_entry_window(error_list):
             error_text = error_text + "storage location is blank "
         if error_list[i] == 4:
             error_text = error_text + "container description is blank "
+        if error_list[i] == 5:
+            error_text = error_text + "product's contents are not set "
 
     layout = [
         [simpleGui.Text("The entry was invalid and has not been added to the database")],
@@ -75,6 +84,22 @@ def get_fsg_id():
             product_id = values[0]
             window.close()
             return product_id
+        window.close()
+        return
+
+
+def get_product_quantity():
+    layout = layouts.layout_get_product_quantity()
+    window = simpleGui.Window("Enter Quantity", layout)
+    while True:
+        event, values = window.read()
+        if event == "Cancel":
+            window.close()
+            return
+        if event == "Submit":
+            quantity = values[0]
+            window.close()
+            return quantity
         window.close()
         return
 

@@ -18,34 +18,36 @@ def is_product_date_formatted_correctly(date):
 
 
 def is_product_id_formatted_correctly(product_id):
-    connection, db_cursor = database.open_db("../database_dir/foundersinventorydb.sqlite")
-    if type(product_id) == str:
-        match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", product_id)
-        is_match = bool(match)
-        if is_match:
-            if len(product_id) == 7:
-                if database.get_product_id_from_db(db_cursor, product_id) == 0:
-                    return 0
-                else:
-                    return 1
-            else:
-                return 1
-        else:
-            return 1
-    else:
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    if type(product_id) != str:
         return 1
+
+    new_product = product_id.replace("s", "S")
+    match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
+    is_match = bool(match)
+    if not is_match:
+        return 1
+
+    if len(product_id) != 7:
+        return 1
+
+    if database.get_product_id_from_db(db_cursor, new_product) != 0:
+        return 1
+    return 0
 
 
 def is_product_id_formatted_correctly_allow_duplicate(product_id):
-    if type(product_id) == str:
-        match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", product_id)
-        is_match = bool(match)
-        if is_match:
-            if len(product_id) == 7:
-                return 0
-            else:
-                return 1
-        else:
-            return 1
-    else:
+    if type(product_id) != str:
         return 1
+
+    new_product = product_id.replace("s", "S")
+
+    match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
+    is_match = bool(match)
+    if not is_match:
+        return 1
+
+    if len(product_id) != 7:
+        return 1
+    return 0

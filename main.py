@@ -3,7 +3,8 @@ from gui_dir import gui
 
 
 def main():
-    connection, db_cursor = database.open_db("database_dir/foundersinventorydb.sqlite")
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
     database.create_table(db_cursor)
     gui.main_window()
 

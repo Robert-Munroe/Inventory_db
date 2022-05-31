@@ -23,6 +23,10 @@ def layout_entry_details():
         [simpleGui.Text("Storage Location:", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Please enter a describe the container")],
         [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter the product's quantity")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter an aggregate form")],
+        [simpleGui.Text("Aggregate form: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
@@ -62,11 +66,21 @@ def layout_pop_up_window(attribute):
     return layout
 
 
+def layout_get_product_quantity():
+    layout = [
+        [simpleGui.Text(f"Please enter the product's quantity")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
+
+
 def layout_view_sample_info(fsg_id):
     layout = [
         [simpleGui.Text(f"FSG ID is: {fsg_id[0]}")],
         [simpleGui.Text(f"Product is: {fsg_id[1]}")],
         [simpleGui.Text(f"Storage Location is: {fsg_id[2]}")],
-        [simpleGui.Text(f"Description of container is: {fsg_id[3]}")]
+        [simpleGui.Text(f"Description of container is: {fsg_id[3]}")],
+        [simpleGui.Text(f"{fsg_id[4]} {fsg_id[5]}")]
     ]
     return layout
