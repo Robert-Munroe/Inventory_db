@@ -51,3 +51,26 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
     if len(product_id) != 7:
         return 1
     return 0
+
+
+def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit):
+    acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
+    test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
+    is_error = is_product_id_formatted_correctly(product_id)
+
+    if is_error == 1 or general_id == "" or holding_location == "" or description == "" or quantity == "" or \
+            unit not in acceptable_units or test_quantity.isdigit() == False:
+        error_list = []
+        if is_error == 1:
+            error_list.append(1)
+        if general_id == "":
+            error_list.append(2)
+        if holding_location == "":
+            error_list.append(3)
+        if description == "":
+            error_list.append(4)
+        if quantity == "" or test_quantity.isdigit() == False:
+            error_list.append(5)
+        if unit not in acceptable_units:
+            error_list.append(6)
+        return error_list

@@ -61,7 +61,7 @@ def invalid_entry_window(error_list):
         if error_list[i] == 4:
             error_text = error_text + "container description is blank "
         if error_list[i] == 5:
-            error_text = error_text + "product's contents are not set "
+            error_text = error_text + "product's quantity are not set, or not a valid number "
         if error_list[i] == 6:
             error_text = error_text + "product's units are invalid or not set"
 

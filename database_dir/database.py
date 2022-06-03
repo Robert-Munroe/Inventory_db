@@ -80,12 +80,16 @@ def update_description(cursor: sqlite3.Cursor, connection):
         gui_windows.pop_up_window("Error", "FSG ID")
         return
     fsg_id = "'" + fsg_id + "'"
+    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
+    if not result:
+        gui_windows.pop_up_window("Error", "FSG ID")
+        return
     new_description = gui_windows.get_change_description()
     if new_description is None or new_description == "":
         gui_windows.pop_up_window("Error", "Description")
         return
     new_description = "'" + new_description + "'"
-    cursor.execute(f'UPDATE founders_inventory SET description = {new_description} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET container_description = {new_description} WHERE fsg_id = {fsg_id}')
     connection.commit()
 
 
@@ -95,11 +99,37 @@ def update_holding(cursor: sqlite3.Cursor, connection):
         gui_windows.pop_up_window("Error", "FSG ID")
         return
     fsg_id = "'" + fsg_id + "'"
+    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
+    if not result:
+        gui_windows.pop_up_window("Error", "FSG ID")
+        return
     new_holding_location = gui_windows.get_change_holding_location()
     if new_holding_location is None or new_holding_location == "":
         gui_windows.pop_up_window("Error", "Storage Location")
         return
     new_holding_location = "'" + new_holding_location + "'"
-    cursor.execute(f'UPDATE founders_inventory SET holding_location = {new_holding_location}'
+    cursor.execute(f'UPDATE founders_inventory SET storage_location = {new_holding_location}'
                    f'WHERE fsg_id = {fsg_id}')
+    connection.commit()
+
+
+def update_quantity(cursor: sqlite3.Cursor, connection):
+    fsg_id = entrybuilder.ask_for_product_id_allow_duplicate()
+    if fsg_id is None:
+        gui_windows.pop_up_window("Error", "FSG ID")
+        return
+    fsg_id = "'" + fsg_id + "'"
+    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
+    if not result:
+        gui_windows.pop_up_window("Error", "FSG ID")
+        return
+    new_quantity = gui_windows.get_product_quantity()
+    if new_quantity is None:
+        gui_windows.pop_up_window("Error", "Quantity")
+        return
+    test_unit = new_quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
+    if new_quantity is None or test_unit.isdigit() == False:
+        gui_windows.pop_up_window("Error", "Quantity is invalid")
+        return
+    cursor.execute(f'UPDATE founders_inventory SET quantity = {new_quantity} WHERE fsg_id = {fsg_id}')
     connection.commit()
