@@ -24,6 +24,7 @@ def is_product_id_formatted_correctly(product_id):
         return 1
 
     new_product = product_id.replace("s", "S")
+    new_product = product_id.replace("r", "R")
     match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
     is_match = bool(match)
     if not is_match:
@@ -42,6 +43,7 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
         return 1
 
     new_product = product_id.replace("s", "S")
+    new_product = product_id.replace("r", "R")
 
     match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
     is_match = bool(match)
@@ -55,6 +57,8 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
 
 def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit):
     acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
+    if quantity is None:
+        quantity = 'a'
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
     is_error = is_product_id_formatted_correctly(product_id)
 

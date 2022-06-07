@@ -8,6 +8,7 @@ def ask_for_product_id_allow_duplicate():
     if is_error != 0:
         return
     new_product = product_id.replace("s", "S")
+    new_product = product_id.replace("r", "R")
     return new_product
 
 
@@ -18,6 +19,7 @@ def ask_for_product_id():
         product_id = gui_windows.get_fsg_id()
         is_error = typechecking.is_product_id_formatted_correctly(product_id)
     new_product = product_id.replace("s", "S")
+    new_product = product_id.replace("r", "R")
     return new_product
 
 
