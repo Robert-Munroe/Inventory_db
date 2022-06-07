@@ -2,21 +2,6 @@ import re
 from database_dir import database
 
 
-def is_product_date_formatted_correctly(date):
-    if type(date) == str:
-        match = re.match("[0-9][0-9][/][0-9][0-9][/][0-9][0-9][0-9][0-9]", date)
-        is_match = bool(match)
-        if is_match:
-            if len(date) == 10:
-                return 0
-            else:
-                return 1
-        else:
-            return 1
-    else:
-        return 1
-
-
 def is_product_id_formatted_correctly(product_id):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
@@ -24,7 +9,7 @@ def is_product_id_formatted_correctly(product_id):
         return 1
 
     new_product = product_id.replace("s", "S")
-    new_product = product_id.replace("r", "R")
+    new_product = new_product.replace("r", "R")
     match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
     is_match = bool(match)
     if not is_match:
@@ -43,7 +28,7 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
         return 1
 
     new_product = product_id.replace("s", "S")
-    new_product = product_id.replace("r", "R")
+    new_product = new_product.replace("r", "R")
 
     match = re.match("[0-9][0-9][S,R][0-9][0-9][0-9][0-9]", new_product)
     is_match = bool(match)
