@@ -133,3 +133,16 @@ def update_quantity(cursor: sqlite3.Cursor, connection):
         return
     cursor.execute(f'UPDATE founders_inventory SET quantity = {new_quantity} WHERE fsg_id = {fsg_id}')
     connection.commit()
+
+
+def get_locations_of_product_id(product_id, cursor):
+    product_id = "'" + product_id + "'"
+    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
+    list_of_locations = []
+    counter = 0
+    for row in result:
+        list_of_locations.append(row[counter])
+        counter = counter + 1
+
+    return result
+

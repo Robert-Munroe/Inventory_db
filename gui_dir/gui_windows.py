@@ -148,3 +148,19 @@ def get_change_holding_location():
             return holding_location
         window.close()
         return
+
+
+def get_product_id():
+    layout = layouts.layout_get_product_id()
+    window = simpleGui.Window("Enter product id", layout)
+    while True:
+        event, values = window.read()
+        if event == "Cancel":
+            window.close()
+            return
+        if event == "Submit":
+            product_id = values[0]
+            window.close()
+            return product_id
+        window.close()
+        return

@@ -6,6 +6,7 @@ def layout_main_window():
         [simpleGui.Text("Welcome to the founders database")],
         [simpleGui.Button("Add Entry")],
         [simpleGui.Button("View an FSG ID")],
+        [simpleGui.Button("Get all locations for product ID")],
         [simpleGui.Button("Update a Container Description")],
         [simpleGui.Button("Update a Storage Location")],
         [simpleGui.Button("Update a sample's quantity")],
@@ -82,5 +83,14 @@ def layout_view_sample_info(fsg_id):
         [simpleGui.Text(f"Storage Location is: {fsg_id[2]}")],
         [simpleGui.Text(f"Description of container is: {fsg_id[3]}")],
         [simpleGui.Text(f"{fsg_id[4]} {fsg_id[5]}")]
+    ]
+    return layout
+
+
+def layout_get_product_id():
+    layout = [
+        [simpleGui.Text(f"Please enter the product id")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
