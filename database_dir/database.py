@@ -4,7 +4,7 @@ from gui_dir import gui_windows
 
 
 def db_location():
-    location = r"D:\foundersinventorydb.sqlite"
+    location = r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
     return location
 
 
