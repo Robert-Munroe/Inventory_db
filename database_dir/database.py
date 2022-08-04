@@ -4,7 +4,7 @@ from gui_dir import gui_windows
 
 
 def db_location():
-    location = r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
+    location = r"I:\database\foundersinventorydb.sqlite"
     return location
 
 
@@ -19,6 +19,14 @@ def close_db(connection: sqlite3.Connection):
     connection.close()
 
 
+def create_user_table(cursor: sqlite3.Cursor):
+    cursor.execute('''CREATE TABLE IF NOT EXISTS user_table(
+    username TEXT PRIMARY KEY,
+    user_password TEXT DEFAULT NULL,
+    initials TEXT DEFAULT NULL
+    );''')
+
+
 def create_inventory_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS founders_inventory(
     fsg_id TEXT PRIMARY KEY,
@@ -26,19 +34,40 @@ def create_inventory_table(cursor: sqlite3.Cursor):
     storage_location TEXT DEFAULT NULL,
     container_description TEXT DEFAULT NULL,
     quantity INT DEFAULT NULL,
-    aggregate_form TEXT DEFAULT NULL
+    aggregate_form TEXT DEFAULT NULL,
+    fsg_id_event_log TEXT DEFAULT NULL
     );''')
 
 
 def create_table(cursor: sqlite3.Cursor):
     create_inventory_table(cursor)
+    create_user_table(cursor)
 
 
 def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
     cursor.executemany('''INSERT INTO founders_inventory(fsg_id, product_id, storage_location, container_description, 
-    quantity, aggregate_form)
-     VALUES(?, ?, ?, ?, ?, ?)''', (entry_to_insert, ))
+    quantity, aggregate_form, fsg_id_event_log)
+     VALUES(?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
     connection.commit()
+
+
+def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
+    username = "'" + username + "'"
+    result = cursor.execute(f'SELECT username FROM user_table WHERE (username == {username});').fetchall()
+    for row in result:
+        result = row[0]
+    username = username.replace("'", "")
+    if result != username:
+        gui_windows.pop_up_window("error", "no valid username, speak with an it admin to get a user name")
+        return
+    username = "'" + username + "'"
+    result = cursor.execute(f'SELECT user_password FROM user_table WHERE (username == {username});').fetchall()
+    for row in result:
+        result = row[0]
+    if password != result:
+        gui_windows.pop_up_window("error", "incorrect password. Closing Program")
+        return
+    return 1
 
 
 def get_product_id_from_db(cursor: sqlite3.Cursor, fsg_id):
@@ -71,6 +100,7 @@ def get_product_info(cursor: sqlite3.Cursor, connection):
         product_info.append(row[3])
         product_info.append(row[4])
         product_info.append(row[5])
+        product_info.append(row[6])
     return product_info
 
 
@@ -145,4 +175,3 @@ def get_locations_of_product_id(product_id, cursor):
         counter = counter + 1
 
     return result
-

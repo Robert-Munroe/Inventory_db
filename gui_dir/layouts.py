@@ -6,7 +6,8 @@ def layout_main_window():
         [simpleGui.Text("Welcome to the founders database")],
         [simpleGui.Button("Add Entry")],
         [simpleGui.Button("View an FSG ID")],
-        [simpleGui.Button("Get all locations for product ID")],
+        [simpleGui.Button("Update an FSG ID")],
+        [simpleGui.Button("Get logging information")],
         [simpleGui.Button("Update a Container Description")],
         [simpleGui.Button("Update a Storage Location")],
         [simpleGui.Button("Update a sample's quantity")],
@@ -42,6 +43,21 @@ def layout_get_fsg_id():
     return layout
 
 
+def layout_update_fsg_id():
+    layout = [
+        [simpleGui.Text("Please enter a new container description")],
+        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter a new storage location")],
+        [simpleGui.Text("Location: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter the product's quantity")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Please enter a reason for updating the sample followed by your initials")],
+        [simpleGui.Text("Change reason: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
+
+
 def layout_change_description():
     layout = [
         [simpleGui.Text("Please enter a new container description")],
@@ -62,7 +78,7 @@ def layout_change_storage_location():
 
 def layout_pop_up_window(attribute):
     layout = [
-        [simpleGui.Text(f"No valid {attribute} entered")]
+        [simpleGui.Text(f"{attribute}")]
     ]
     return layout
 

@@ -15,8 +15,10 @@ def main_window():
             add_entry_button()
         if event == "View an FSG ID":
             view_a_sample_button()
-        if event == "Get all locations for product ID":
-            get_all_locations_button()
+        if event == "Update an FSG ID":
+            update_an_fsg_id_button()
+        if event == "Get logging information":
+            get_logging_information_button()
         if event == "Update a Container Description":
             update_a_description_button()
         if event == "Update a Storage Location":
@@ -32,15 +34,16 @@ def add_entry_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
 
-    product_id, general_id, holding_location, description, quantity, aggregate_form = gui_windows.get_entry_details()
+    product_id, general_id, holding_location, description, quantity, aggregate_form, fsg_id_event_log\
+        = gui_windows.get_entry_details()
     error_list = typechecking.is_entry_correct(product_id, general_id, holding_location, description,
-                                               quantity, aggregate_form)
+                                               quantity, aggregate_form, fsg_id_event_log)
 
     if error_list:
         gui_windows.invalid_entry_window(error_list)
         return
 
-    entry = [product_id, general_id, holding_location, description, quantity, aggregate_form]
+    entry = [product_id, general_id, holding_location, description, quantity, aggregate_form, fsg_id_event_log]
     database.insert_into_inventory_table(db_cursor, connection, entry)
 
 
@@ -49,6 +52,12 @@ def view_a_sample_button():
     connection, db_cursor = database.open_db(location_of_db)
     product_info = database.get_product_info(db_cursor, connection)
     gui_windows.view_a_sample_window(product_info)
+
+
+def update_an_fsg_id_button():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+
 
 
 def update_a_description_button():
@@ -67,6 +76,10 @@ def update_a_samples_quantity():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     database.update_quantity(db_cursor, connection)
+
+
+def get_logging_information_button():
+    return
 
 
 def get_all_locations_button():

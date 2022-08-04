@@ -40,7 +40,7 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
     return 0
 
 
-def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit):
+def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit, fsg_id_event_log):
     acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
     if quantity is None:
         quantity = 'a'
@@ -48,7 +48,7 @@ def is_entry_correct(product_id, general_id, holding_location, description, quan
     is_error = is_product_id_formatted_correctly(product_id)
 
     if is_error == 1 or general_id == "" or holding_location == "" or description == "" or quantity == "" or \
-            unit not in acceptable_units or test_quantity.isdigit() == False:
+            unit not in acceptable_units or test_quantity.isdigit() or fsg_id_event_log == "" == False:
         error_list = []
         if is_error == 1:
             error_list.append(1)
@@ -62,4 +62,6 @@ def is_entry_correct(product_id, general_id, holding_location, description, quan
             error_list.append(5)
         if unit not in acceptable_units:
             error_list.append(6)
+        if fsg_id_event_log == "":
+            error_list.append(7)
         return error_list

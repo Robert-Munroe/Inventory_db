@@ -1,4 +1,5 @@
 import PySimpleGUI as simpleGui
+from datetime import datetime
 from gui_dir import layouts
 
 
@@ -18,6 +19,7 @@ def while_pop_up_window_is_true_loop(window):
 def get_entry_details():
     layout = layouts.layout_entry_details()
     window = simpleGui.Window("Add an Entry", layout)
+    current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     while True:
         event, values = window.read()
         if event == "Cancel":
@@ -28,7 +30,10 @@ def get_entry_details():
             container_description = ""
             quantity = ""
             aggregate_form = ""
-            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
+            fsg_id_event_log = ""
+            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form, \
+                   fsg_id_event_log
+
         if event == "Submit":
             fsg_id = values[0]
             fsg_id = fsg_id.replace("s", "S")
@@ -37,16 +42,19 @@ def get_entry_details():
             container_description = values[3]
             quantity = values[4]
             aggregate_form = values[5]
+            fsg_id_event_log = current_time + " FSG ID created"
             window.close()
-            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
+            return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form,\
+                   fsg_id_event_log
         fsg_id = "error"
         product_id = ""
         storage_location = ""
         container_description = ""
         quantity = ""
         aggregate_form = ""
+        fsg_id_event_log = ""
         window.close()
-        return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form
+        return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form, fsg_id_event_log
 
 
 def invalid_entry_window(error_list):
@@ -63,7 +71,9 @@ def invalid_entry_window(error_list):
         if error_list[i] == 5:
             error_text = error_text + "product's quantity are not set, or not a valid number "
         if error_list[i] == 6:
-            error_text = error_text + "product's units are invalid or not set"
+            error_text = error_text + "product's units are invalid or not set "
+        if error_list[i] == 6:
+            error_text = error_text + "your action was not logged"
 
     layout = [
         [simpleGui.Text("The entry was invalid and has not been added to the database")],
