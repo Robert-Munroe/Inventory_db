@@ -1,7 +1,5 @@
 import PySimpleGUI as simpleGui
-from gui_dir import user_layouts, gui_windows
-from database_dir import database
-from helper_functions import typechecking
+from gui_dir import user_layouts
 
 
 def main_user_window():
@@ -12,7 +10,9 @@ def main_user_window():
         event, values = window.read()
         if event == "Cancel":
             window.close()
-            return
+            user_name = ""
+            password = ""
+            return user_name, password
         if event == "Submit":
             user_name = values[0]
             password = values[1]
@@ -22,4 +22,3 @@ def main_user_window():
         user_name = ""
         password = ""
         return user_name, password
-

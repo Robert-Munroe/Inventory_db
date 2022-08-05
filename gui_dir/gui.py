@@ -59,7 +59,6 @@ def update_an_fsg_id_button():
     connection, db_cursor = database.open_db(location_of_db)
 
 
-
 def update_a_description_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)

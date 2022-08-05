@@ -59,15 +59,16 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     username = username.replace("'", "")
     if result != username:
         gui_windows.pop_up_window("error", "no valid username, speak with an it admin to get a user name")
-        return
+        return False, username
     username = "'" + username + "'"
     result = cursor.execute(f'SELECT user_password FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
         result = row[0]
     if password != result:
         gui_windows.pop_up_window("error", "incorrect password. Closing Program")
-        return
-    return 1
+        return False, username
+    username = username.replace("'", "")
+    return True, username
 
 
 def get_product_id_from_db(cursor: sqlite3.Cursor, fsg_id):
@@ -112,11 +113,11 @@ def update_description(cursor: sqlite3.Cursor, connection):
     fsg_id = "'" + fsg_id + "'"
     result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
     if not result:
-        gui_windows.pop_up_window("Error", "FSG ID")
+        gui_windows.pop_up_window("Error", "FSG ID is invalid")
         return
     new_description = gui_windows.get_change_description()
     if new_description is None or new_description == "":
-        gui_windows.pop_up_window("Error", "Description")
+        gui_windows.pop_up_window("Error", "Description is blank")
         return
     new_description = "'" + new_description + "'"
     cursor.execute(f'UPDATE founders_inventory SET container_description = {new_description} WHERE fsg_id = {fsg_id}')

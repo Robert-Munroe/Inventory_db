@@ -65,3 +65,8 @@ def is_entry_correct(product_id, general_id, holding_location, description, quan
         if fsg_id_event_log == "":
             error_list.append(7)
         return error_list
+
+
+def is_user_formatted_correctly(user_name, password, initials):
+
+    return
