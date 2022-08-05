@@ -55,36 +55,9 @@ def layout_update_fsg_id():
     return layout
 
 
-def layout_change_description():
-    layout = [
-        [simpleGui.Text("Please enter a new container description")],
-        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Submit(), simpleGui.Cancel()]
-    ]
-    return layout
-
-
-def layout_change_storage_location():
-    layout = [
-        [simpleGui.Text("Please enter a new storage location")],
-        [simpleGui.Text("Location: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Submit(), simpleGui.Cancel()]
-    ]
-    return layout
-
-
 def layout_pop_up_window(attribute):
     layout = [
         [simpleGui.Text(f"{attribute}")]
-    ]
-    return layout
-
-
-def layout_get_product_quantity():
-    layout = [
-        [simpleGui.Text(f"Please enter the product's quantity")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
 
@@ -102,8 +75,8 @@ def layout_view_sample_info(fsg_id):
 
 def layout_get_product_id():
     layout = [
-        [simpleGui.Text(f"Please enter the product id")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text(f"Please enter the product ID")],
+        [simpleGui.Text("Product ID: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
@@ -121,5 +94,15 @@ def layout_get_entry_update(fsg_id):
         [simpleGui.Text(f"Please enter a reason for your edit")],
         [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
+
+
+def layout_logging_main_window():
+    layout = [
+        [simpleGui.Text("Welcome to logging")],
+        [simpleGui.Button("FSG_ID with X Product Name"), simpleGui.Button("Historic FSG_ID with X Product Name") ],
+        [simpleGui.Button("Samples in storage location"), simpleGui.Button("Historic FSG_ID in storage location")],
+        [simpleGui.Button("Exit")]
     ]
     return layout

@@ -116,22 +116,6 @@ def get_update_entry(fsg_id, initials):
         return storage_location, description, quantity, reason_for_change
 
 
-def get_product_quantity():
-    layout = layouts.layout_get_product_quantity()
-    window = simpleGui.Window("Enter Quantity", layout)
-    while True:
-        event, values = window.read()
-        if event == "Cancel":
-            window.close()
-            return
-        if event == "Submit":
-            quantity = values[0]
-            window.close()
-            return quantity
-        window.close()
-        return
-
-
 def view_a_sample_window(product_info):
     if not product_info:
         pop_up_window("Error", "Entry")
@@ -142,38 +126,6 @@ def view_a_sample_window(product_info):
 
         window = simpleGui.Window(f"Entry of {product_info[0]}", layout_for_valid_entry)
         while_pop_up_window_is_true_loop(window)
-
-
-def get_change_description():
-    layout = layouts.layout_change_description()
-    while True:
-        window = simpleGui.Window("Change Description", layout)
-        event, values = window.read()
-        if event == "Cancel":
-            window.close()
-            return
-        if event == "Submit":
-            description = values[0]
-            window.Close()
-            return description
-        window.close()
-        return
-
-
-def get_change_holding_location():
-    layout = layouts.layout_change_storage_location()
-    while True:
-        window = simpleGui.Window("Change Storage Location", layout)
-        event, values = window.read()
-        if event == "Cancel":
-            window.Close()
-            return
-        if event == "Submit":
-            holding_location = values[0]
-            window.Close()
-            return holding_location
-        window.close()
-        return
 
 
 def get_product_id():

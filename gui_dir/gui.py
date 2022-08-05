@@ -1,5 +1,5 @@
 import PySimpleGUI as simpleGui
-from gui_dir import layouts, gui_windows
+from gui_dir import layouts, gui_windows, logging_gui
 from database_dir import database, storage_locations
 from helper_functions import typechecking, entrybuilder
 
@@ -81,26 +81,8 @@ def update_an_fsg_id_button(initials):
     database.update_entry(db_cursor, connection, fsg_id, storage_location, description, quantity, reason_for_change)
 
 
-def update_a_description_button():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-    database.update_description(db_cursor, connection)
-
-
-def update_a_holding_location_button():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-    database.update_holding(db_cursor, connection)
-
-
-def update_a_samples_quantity():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-    database.update_quantity(db_cursor, connection)
-
-
 def get_logging_information_button():
-    return
+    logging_gui.logging_main_window()
 
 
 def get_all_locations_button():
