@@ -50,8 +50,8 @@ def get_user():
 
 def get_change_user_password(username):
     layout = user_layouts.layout_change_user_password()
+    window = simpleGui.Window(f"{username}", layout)
     while True:
-        window = simpleGui.Window(f"{username}", layout)
         event, values = window.read()
         if event == "Cancel":
             window.close()

@@ -1,5 +1,5 @@
 import re
-from database_dir import database
+from database_dir import database, storage_locations
 
 
 def is_product_id_formatted_correctly(product_id):
@@ -42,27 +42,29 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
 
 def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit, fsg_id_event_log):
     acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
+    acceptable_locations = storage_locations.set_acceptable_locations()
     if quantity is None:
         quantity = 'a'
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
     is_error = is_product_id_formatted_correctly(product_id)
 
-    if is_error == 1 or general_id == "" or holding_location == "" or description == "" or quantity == "" or \
-            unit not in acceptable_units or test_quantity.isdigit() or fsg_id_event_log == "" == False:
-        error_list = []
+    if is_error == 1 or general_id == "" or holding_location == "" or holding_location not in acceptable_locations or\
+            description == "" or quantity == "" or unit not in acceptable_units or \
+            test_quantity.isdigit() or fsg_id_event_log == "" == False:
+        error_list = ""
         if is_error == 1:
-            error_list.append(1)
+            error_list = error_list + "FSG ID is invalid or blank"
         if general_id == "":
-            error_list.append(2)
+            error_list = error_list + "product field is blank "
         if holding_location == "":
-            error_list.append(3)
+            error_list = error_list + "storage location is blank "
+        if holding_location not in acceptable_locations:
+            error_list = error_list + "storage location is invalid "
         if description == "":
-            error_list.append(4)
+            error_list = error_list + "container description is blank "
         if quantity == "" or test_quantity.isdigit() == False:
-            error_list.append(5)
+            error_list = error_list + "product's quantity is not set, or not a valid number "
         if unit not in acceptable_units:
-            error_list.append(6)
-        if fsg_id_event_log == "":
-            error_list.append(7)
+            error_list = error_list + "product's units are invalid or not set "
         return error_list
 

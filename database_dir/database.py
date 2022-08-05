@@ -83,6 +83,39 @@ def get_product_id_from_db(cursor: sqlite3.Cursor, fsg_id):
         return 1
 
 
+def does_fsg_id_exist(cursor: sqlite3.Cursor, fsg_id):
+    fsg_id = "'" + fsg_id + "'"
+    result = cursor.execute(f'SELECT fsg_id FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
+    for row in result:
+        result = row[0]
+    fsg_id = fsg_id.replace("'", "")
+    if result == fsg_id:
+        return True
+    return False
+
+
+def update_entry(cursor: sqlite3.Cursor, connection, fsg_id, storage_location, description,
+                  quantity, reason_for_change):
+    fsg_id = "'" + fsg_id + "'"
+    storage_location = "'" + storage_location + "'"
+    description = "'" + description + "'"
+    quantity = "'" + quantity + "'"
+    reason_for_change = append_event_log(cursor, fsg_id, reason_for_change)
+
+    cursor.execute(f'UPDATE founders_inventory SET storage_location = {storage_location} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET container_description = {description} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET quantity = {quantity} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET fsg_id_event_log = {reason_for_change} WHERE fsg_id = {fsg_id}')
+    connection.commit()
+
+
+def append_event_log(cursor: sqlite3.Cursor, fsg_id, reason_for_change):
+    result = cursor.execute(f'SELECT fsg_id_event_log FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
+    for row in result:
+        result = row[0]
+    return "'" + result + reason_for_change + "'"
+
+
 def get_product_info(cursor: sqlite3.Cursor, connection):
     product_info = []
     fsg_id = entrybuilder.ask_for_product_id_allow_duplicate()

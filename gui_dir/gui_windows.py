@@ -58,22 +58,10 @@ def get_entry_details(initials):
 
 
 def invalid_entry_window(error_list):
-    error_text = ""
-    for i in range(len(error_list)):
-        if error_list[i] == 1:
-            error_text = error_text + "FSG ID is invalid or blank "
-        if error_list[i] == 2:
-            error_text = error_text + "product field is blank "
-        if error_list[i] == 3:
-            error_text = error_text + "storage location is blank "
-        if error_list[i] == 4:
-            error_text = error_text + "container description is blank "
-        if error_list[i] == 5:
-            error_text = error_text + "product's quantity are not set, or not a valid number "
-        if error_list[i] == 6:
-            error_text = error_text + "product's units are invalid or not set "
-        if error_list[i] == 6:
-            error_text = error_text + "your action was not logged"
+    error_text = error_list
+
+    if error_text:
+        error_text = error_text + " your actions were not logged"
 
     layout = [
         [simpleGui.Text("The entry was invalid and has not been added to the database")],
@@ -98,6 +86,34 @@ def get_fsg_id():
             return product_id
         window.close()
         return
+
+
+def get_update_entry(fsg_id, initials):
+    layout = layouts.layout_get_entry_update(fsg_id)
+    window = simpleGui.Window(f"Change {fsg_id}", layout)
+    current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    while True:
+        event, values = window.read()
+        if event == "Cancel":
+            storage_location = ""
+            description = ""
+            quantity = ""
+            reason_for_change = ""
+            window.close()
+            return storage_location, description, quantity, reason_for_change
+        if event == "Submit":
+            storage_location = values[0]
+            description = values[1]
+            quantity = values[2]
+            reason_for_change = current_time + " " + initials + " " + values[3] + ","
+            window.Close()
+            return storage_location, description, quantity, reason_for_change
+        window.close()
+        storage_location = ""
+        description = ""
+        quantity = ""
+        reason_for_change = ""
+        return storage_location, description, quantity, reason_for_change
 
 
 def get_product_quantity():

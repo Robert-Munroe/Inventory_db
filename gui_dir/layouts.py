@@ -107,3 +107,19 @@ def layout_get_product_id():
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
+
+
+def layout_get_entry_update(fsg_id):
+    layout = [
+        [simpleGui.Text(f"You are making changes to {fsg_id}")],
+        [simpleGui.Text(f"Please enter the storage location")],
+        [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text(f"Please enter the description")],
+        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text(f"Please enter the product's quantity")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text(f"Please enter a reason for your edit")],
+        [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
