@@ -4,38 +4,32 @@ from database_dir import database
 from helper_functions import typechecking
 
 
-def main_window():
+def main_window(initials):
     layout = layouts.layout_main_window()
-
     window = simpleGui.Window("Founders Database", layout)
+    initials = initials
 
     while True:
         event, values = window.read()
         if event == "Add Entry":
-            add_entry_button()
+            add_entry_button(initials)
         if event == "View an FSG ID":
             view_a_sample_button()
         if event == "Update an FSG ID":
-            update_an_fsg_id_button()
+            update_an_fsg_id_button(initials)
         if event == "Get logging information":
             get_logging_information_button()
-        if event == "Update a Container Description":
-            update_a_description_button()
-        if event == "Update a Storage Location":
-            update_a_holding_location_button()
-        if event == "Update a sample's quantity":
-            update_a_samples_quantity()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break
     window.close()
 
 
-def add_entry_button():
+def add_entry_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
 
     product_id, general_id, holding_location, description, quantity, aggregate_form, fsg_id_event_log\
-        = gui_windows.get_entry_details()
+        = gui_windows.get_entry_details(initials)
     error_list = typechecking.is_entry_correct(product_id, general_id, holding_location, description,
                                                quantity, aggregate_form, fsg_id_event_log)
 

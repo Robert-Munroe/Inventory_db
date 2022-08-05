@@ -16,7 +16,7 @@ def while_pop_up_window_is_true_loop(window):
             break
 
 
-def get_entry_details():
+def get_entry_details(initials):
     layout = layouts.layout_entry_details()
     window = simpleGui.Window("Add an Entry", layout)
     current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
@@ -42,7 +42,7 @@ def get_entry_details():
             container_description = values[3]
             quantity = values[4]
             aggregate_form = values[5]
-            fsg_id_event_log = current_time + " FSG ID created"
+            fsg_id_event_log = current_time + " FSG ID created " + initials + ","
             window.close()
             return fsg_id, product_id, storage_location, container_description, quantity, aggregate_form,\
                    fsg_id_event_log

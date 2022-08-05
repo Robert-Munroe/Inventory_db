@@ -23,6 +23,14 @@ def user_exist(cursor: sqlite3.Cursor, username):
     return False
 
 
+def get_user_initials(cursor: sqlite3.Cursor, username):
+    username = "'" + username + "'"
+    result = cursor.execute(f'SELECT initials FROM user_table WHERE (username == {username});').fetchall()
+    for row in result:
+        result = row[0]
+    return result
+
+
 def change_user_password(cursor: sqlite3.Cursor, connection, username, password):
     username = "'" + username + "'"
     password = "'" + password + "'"

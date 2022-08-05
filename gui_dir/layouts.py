@@ -8,9 +8,6 @@ def layout_main_window():
         [simpleGui.Button("View an FSG ID")],
         [simpleGui.Button("Update an FSG ID")],
         [simpleGui.Button("Get logging information")],
-        [simpleGui.Button("Update a Container Description")],
-        [simpleGui.Button("Update a Storage Location")],
-        [simpleGui.Button("Update a sample's quantity")],
         [simpleGui.Button("Exit")]
     ]
     return layout
