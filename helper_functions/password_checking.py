@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from helper_functions import special_characters
 
 
@@ -33,3 +33,23 @@ def password_complexity_check(password):
             break
 
     return password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag
+
+
+def create_password_time_stamp():
+
+    year = datetime.now()
+    current_year = int(year.strftime('%y'))
+    month = datetime.now()
+    current_month = int(month.strftime('%m'))
+    day = datetime.now()
+    current_day = int(day.strftime('%d'))
+
+    current_year = current_year % 2000
+    current_year = current_year * 1000
+    current_month = (current_month-1) * 30
+
+    timestamp = current_day + current_month + current_year
+
+    return timestamp
+
+

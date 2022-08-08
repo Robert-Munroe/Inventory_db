@@ -57,7 +57,9 @@ def add_user_button():
         gui_windows.pop_up_window("Error", error_list)
         return
 
-    user = [user_name, password, initials]
+    timestamp = password_checking.create_password_time_stamp()
+
+    user = [user_name, password, initials, timestamp]
     log_in_database_functions.insert_into_user_table(db_cursor, connection, user)
 
 
@@ -76,7 +78,7 @@ def edit_a_user():
         gui_windows.pop_up_window("Error", "You cannot change admin password this way")
         return
 
-    password = admin_windows.get_change_user_password(user_name)
+    password, timestamp = admin_windows.get_change_user_password(user_name)
 
     if not password:
         gui_windows.pop_up_window("Error", "Password is blank")
@@ -95,7 +97,7 @@ def edit_a_user():
         gui_windows.pop_up_window("Error", "Password needs to be more complex")
         return
 
-    log_in_database_functions.change_user_password(db_cursor, connection, user_name, password)
+    log_in_database_functions.change_user_password(db_cursor, connection, user_name, password, timestamp)
     gui_windows.pop_up_window("Success", "Password changed")
 
 

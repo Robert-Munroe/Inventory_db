@@ -1,5 +1,6 @@
 import PySimpleGUI as simpleGui
 from gui_dir import user_layouts
+from helper_functions import password_checking
 
 
 def add_user_window():
@@ -58,7 +59,8 @@ def get_change_user_password(username):
             return
         if event == "Submit":
             password = values[0]
+            timestamp = password_checking.create_password_time_stamp()
             window.Close()
-            return password
+            return password, timestamp
         window.close()
         return

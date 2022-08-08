@@ -3,8 +3,11 @@ from helper_functions import entrybuilder
 from gui_dir import gui_windows
 
 
+# r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
+# r"I:\database\foundersinventorydb.sqlite"
+
 def db_location():
-    location = r"I:\database\foundersinventorydb.sqlite"
+    location = r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
     return location
 
 
@@ -23,7 +26,8 @@ def create_user_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS user_table(
     username TEXT PRIMARY KEY,
     user_password TEXT DEFAULT NULL,
-    initials TEXT DEFAULT NULL
+    initials TEXT DEFAULT NULL,
+    timestamp INT DEFAULT NULL
     );''')
 
 
@@ -68,8 +72,12 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     if password != result:
         gui_windows.pop_up_window("error", "incorrect password. Closing Program")
         return False, username
+    result = cursor.execute(f'SELECT timestamp FROM user_table WHERE (username == {username});').fetchall()
+    for row in result:
+        result = row[0]
+    timestamp = result
     username = username.replace("'", "")
-    return True, username
+    return True, username, timestamp
 
 
 def get_product_id_from_db(cursor: sqlite3.Cursor, fsg_id):
