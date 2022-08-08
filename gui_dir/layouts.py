@@ -42,21 +42,6 @@ def layout_get_fsg_id():
     return layout
 
 
-def layout_update_fsg_id():
-    layout = [
-        [simpleGui.Text("Please enter a new container description")],
-        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Text("Please enter a new storage location")],
-        [simpleGui.Text("Location: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Text("Please enter the product's quantity")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Text("Please enter a reason for updating the sample followed by your initials")],
-        [simpleGui.Text("Change reason: ", size=(15, 1)), simpleGui.InputText()],
-        [simpleGui.Submit(), simpleGui.Cancel()]
-    ]
-    return layout
-
-
 def layout_pop_up_window(attribute):
     layout = [
         [simpleGui.Text(f"{attribute}")]
@@ -84,15 +69,15 @@ def layout_get_product_id():
     return layout
 
 
-def layout_get_entry_update(fsg_id):
+def layout_get_entry_update(fsg_id, storage_location, description, quantity):
     layout = [
         [simpleGui.Text(f"You are making changes to {fsg_id}")],
         [simpleGui.Text(f"Please enter the storage location")],
-        [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText(f"{storage_location}")],
         [simpleGui.Text(f"Please enter the description")],
-        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}")],
         [simpleGui.Text(f"Please enter the product's quantity")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText(f"{quantity}")],
         [simpleGui.Text(f"Please enter a reason for your edit")],
         [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]

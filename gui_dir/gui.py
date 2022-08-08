@@ -66,7 +66,12 @@ def update_an_fsg_id_button(initials):
         gui_windows.pop_up_window("Error", "FSG_ID does not exist")
         return
 
-    storage_location, description, quantity, reason_for_change = gui_windows.get_update_entry(fsg_id, initials)
+    previous_storage_location, previous_description, previous_quantity = \
+        database.get_previous_entry_info(fsg_id, db_cursor)
+
+    storage_location, description, quantity, reason_for_change = \
+        gui_windows.get_update_entry(fsg_id, previous_storage_location,
+                                     previous_description, previous_quantity, initials)
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
 
     if storage_location == "" or description == "" or quantity == "" or reason_for_change == "":
@@ -84,19 +89,3 @@ def update_an_fsg_id_button(initials):
 
 def get_logging_information_button():
     logging_gui.logging_main_window()
-
-
-def get_all_locations_button():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-    product_id = gui_windows.get_product_id()
-    if not product_id:
-        return
-    list_of_fsg_ids_and_locations = database.get_locations_of_product_id(product_id, db_cursor)
-    if not list_of_fsg_ids_and_locations:
-        gui_windows.pop_up_window('error', 'product_id')
-    list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
-
-    with open('list_of_product_location.txt', 'w') as f:
-        for item in list_entries_lists:
-            f.write("%s\n" % item)

@@ -92,8 +92,8 @@ def get_fsg_id():
         return
 
 
-def get_update_entry(fsg_id, initials):
-    layout = layouts.layout_get_entry_update(fsg_id)
+def get_update_entry(fsg_id, storage_location, description, quantity, initials):
+    layout = layouts.layout_get_entry_update(fsg_id, storage_location, description, quantity)
     window = simpleGui.Window(f"Change {fsg_id}", layout)
     current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     while True:
