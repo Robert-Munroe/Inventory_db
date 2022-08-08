@@ -66,12 +66,12 @@ def update_an_fsg_id_button(initials):
         gui_windows.pop_up_window("Error", "FSG_ID does not exist")
         return
 
-    previous_storage_location, previous_description, previous_quantity = \
+    previous_storage_location, previous_description, previous_quantity, previous_form = \
         database.get_previous_entry_info(fsg_id, db_cursor)
 
     storage_location, description, quantity, reason_for_change = \
         gui_windows.get_update_entry(fsg_id, previous_storage_location,
-                                     previous_description, previous_quantity, initials)
+                                     previous_description, previous_quantity, previous_form, initials)
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
 
     if storage_location == "" or description == "" or quantity == "" or reason_for_change == "":

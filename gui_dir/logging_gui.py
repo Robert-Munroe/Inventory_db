@@ -17,6 +17,10 @@ def logging_main_window():
             storage_location_dump()
         if event == "Historic FSG_ID in storage location":
             storage_location_dump_historic()
+        if event == "FSG_ID by client":
+            fsg_id_by_client_button()
+        if event == "FSG_ID by client historic":
+            fsg_id_by_client_historic_button()
         if event == "History by FSG_ID":
             fsg_id_dump()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
@@ -38,6 +42,14 @@ def storage_location_dump():
 
 def storage_location_dump_historic():
     logging_gui_buttons.get_fsg_id_from_storage_location_historic()
+
+
+def fsg_id_by_client_button():
+    logging_gui_buttons.get_fsg_id_by_client()
+
+
+def fsg_id_by_client_historic_button():
+    logging_gui_buttons.get_fsg_id_by_client_historic()
 
 
 def fsg_id_dump():

@@ -90,6 +90,7 @@ def layout_logging_main_window():
         [simpleGui.Text("Welcome to logging")],
         [simpleGui.Button("FSG_ID by Product Name"), simpleGui.Button("Historic FSG_ID by Product Name")],
         [simpleGui.Button("FSG_ID in storage location"), simpleGui.Button("Historic FSG_ID in storage location")],
+        [simpleGui.Button("FSG_ID by client"), simpleGui.Button("FSG_ID by client historic")],
         [simpleGui.Button("History by FSG_ID")],
         [simpleGui.Button("Exit")]
     ]
@@ -100,6 +101,15 @@ def layout_get_storage_location():
     layout = [
         [simpleGui.Text("Please enter a storage location")],
         [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
+
+
+def layout_get_client_id():
+    layout = [
+        [simpleGui.Text("Please enter a client_id")],
+        [simpleGui.Text("Client: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout

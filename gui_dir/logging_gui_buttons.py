@@ -80,12 +80,51 @@ def get_fsg_id_from_storage_location_historic():
             f.write("%s\n" % item)
 
 
+def get_fsg_id_by_client():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    client = gui_windows.get_client_id()
+
+    list_of_records = logging_functions.get_fsg_id_by_client(client, db_cursor)
+
+    if not list_of_records:
+        gui_windows.pop_up_window('error', 'client id has no records')
+        return
+
+    entries_lists = [list(i) for i in list_of_records]
+
+    with open(f'list_of_samples_for_{client}.txt', 'w') as f:
+        for item in entries_lists:
+            f.write("%s\n" % item)
+
+
+def get_fsg_id_by_client_historic():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    client = gui_windows.get_client_id()
+
+    list_of_records = logging_functions.get_fsg_id_by_client_historic(client, db_cursor)
+
+    if not list_of_records:
+        gui_windows.pop_up_window('error', 'client id has no records')
+        return
+
+    entries_lists = [list(i) for i in list_of_records]
+
+    with open(f'list_of_samples_for_{client}_historic.txt', 'w') as f:
+        for item in entries_lists:
+            f.write("%s\n" % item)
+
+
 def fsg_id_dump_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     fsg_id = gui_windows.get_fsg_id()
 
     is_error = typechecking.is_product_id_formatted_correctly_allow_duplicate(fsg_id)
+    fsg_id = fsg_id.replace("s", "S")
+    fsg_id = fsg_id.replace("r", "R")
+
     if is_error == 1:
         gui_windows.pop_up_window("Error", "FSG ID formatted incorrectly")
         return

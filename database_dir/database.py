@@ -141,10 +141,11 @@ def get_product_info(cursor: sqlite3.Cursor, connection):
 
 def get_previous_entry_info(fsg_id, cursor):
     fsg_id = "'" + fsg_id + "'"
-    result = cursor.execute(f'SELECT storage_location, container_description, quantity FROM founders_inventory '
-                            f'WHERE (fsg_id == {fsg_id});')
+    result = cursor.execute(f'SELECT storage_location, container_description, quantity, aggregate_form  '
+                            f'FROM founders_inventory WHERE (fsg_id == {fsg_id});')
     for row in result:
         previous_storage_location = row[0]
         previous_description = row[1]
         previous_quantity = row[2]
-        return previous_storage_location, previous_description, previous_quantity
+        previous_form = row[3]
+        return previous_storage_location, previous_description, previous_quantity, previous_form

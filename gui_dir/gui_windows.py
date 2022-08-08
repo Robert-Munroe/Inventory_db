@@ -44,7 +44,8 @@ def get_entry_details(initials):
             container_description = values[4]
             quantity = values[5]
             aggregate_form = values[6]
-            fsg_id_event_log = current_time + initials + " FSG ID created" ", "
+            fsg_id_event_log = \
+                current_time + initials + " " + str(values[5]) + " " + values[6] + " " + " FSG ID created,"
             window.close()
             return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form, \
                    fsg_id_event_log
@@ -92,7 +93,7 @@ def get_fsg_id():
         return
 
 
-def get_update_entry(fsg_id, storage_location, description, quantity, initials):
+def get_update_entry(fsg_id, storage_location, description, quantity, form, initials):
     layout = layouts.layout_get_entry_update(fsg_id, storage_location, description, quantity)
     window = simpleGui.Window(f"Change {fsg_id}", layout)
     current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
@@ -109,7 +110,9 @@ def get_update_entry(fsg_id, storage_location, description, quantity, initials):
             storage_location = values[0]
             description = values[1]
             quantity = values[2]
-            reason_for_change = current_time + " " + initials + " " + values[3] + ","
+            value_3 = values[3]
+            reason_for_change = \
+                current_time + " " + initials + " " + str(values[2]) + " " + form + " " + value_3.replace(",", "") + ","
             window.Close()
             return storage_location, description, quantity, reason_for_change
         window.close()
@@ -160,5 +163,21 @@ def get_storage_location():
             storage_location = values[0]
             window.close()
             return storage_location
+        window.close()
+        return
+
+
+def get_client_id():
+    layout = layouts.layout_get_client_id()
+    window = simpleGui.Window("Enter client id", layout)
+    while True:
+        event, values = window.read()
+        if event == "Cancel":
+            window.close()
+            return
+        if event == "Submit":
+            client_id = values[0]
+            window.close()
+            return client_id
         window.close()
         return
