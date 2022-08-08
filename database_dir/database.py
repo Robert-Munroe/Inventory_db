@@ -31,6 +31,7 @@ def create_inventory_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS founders_inventory(
     fsg_id TEXT PRIMARY KEY,
     product_id TEXT DEFAULT NULL,
+    client_id TEXT DEFAULT NULL,
     storage_location TEXT DEFAULT NULL,
     container_description TEXT DEFAULT NULL,
     quantity INT DEFAULT NULL,
@@ -45,9 +46,9 @@ def create_table(cursor: sqlite3.Cursor):
 
 
 def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
-    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, product_id, storage_location, container_description, 
-    quantity, aggregate_form, fsg_id_event_log)
-     VALUES(?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
+    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, product_id, client_id, storage_location,
+     container_description, quantity, aggregate_form, fsg_id_event_log)
+     VALUES(?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
     connection.commit()
 
 
@@ -136,28 +137,3 @@ def get_product_info(cursor: sqlite3.Cursor, connection):
         product_info.append(row[5])
         product_info.append(row[6])
     return product_info
-
-
-def get_locations_of_product_id(product_id, cursor):
-    product_id = "'" + product_id + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (product_id == {product_id}) '
-                            f'AND quantity > 0;').fetchall()
-    list_of_locations = []
-    counter = 0
-    for row in result:
-        list_of_locations.append(row[counter])
-        counter = counter + 1
-
-    return result
-
-
-def get_locations_of_product_id_historic(product_id, cursor):
-    product_id = "'" + product_id + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
-    list_of_locations = []
-    counter = 0
-    for row in result:
-        list_of_locations.append(row[counter])
-        counter = counter + 1
-
-    return result

@@ -9,14 +9,16 @@ def logging_main_window():
 
     while True:
         event, values = window.read()
-        if event == "FSG_ID with X Product Name":
+        if event == "FSG_ID by Product Name":
             fsg_id_by_product_name_button()
-        if event == "Historic FSG_ID with X Product Name":
+        if event == "Historic FSG_ID by Product Name":
             fsg_id_by_product_name_button_historic()
-        if event == "Samples in storage location":
+        if event == "FSG_ID in storage location":
             storage_location_dump()
         if event == "Historic FSG_ID in storage location":
             storage_location_dump_historic()
+        if event == "History by FSG_ID":
+            fsg_id_dump()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break
     window.close()
@@ -31,8 +33,12 @@ def fsg_id_by_product_name_button_historic():
 
 
 def storage_location_dump():
-    return
+    logging_gui_buttons.get_fsg_id_from_storage_location()
 
 
 def storage_location_dump_historic():
-    return
+    logging_gui_buttons.get_fsg_id_from_storage_location_historic()
+
+
+def fsg_id_dump():
+    logging_gui_buttons.fsg_id_dump_button()

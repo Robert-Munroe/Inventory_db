@@ -43,7 +43,6 @@ def add_user_button():
         return
 
     user = [user_name, password, initials]
-    print("put in table")
     log_in_database_functions.insert_into_user_table(db_cursor,connection, user)
 
 

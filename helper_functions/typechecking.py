@@ -40,7 +40,7 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
     return 0
 
 
-def is_entry_correct(product_id, general_id, holding_location, description, quantity, unit, fsg_id_event_log):
+def is_entry_correct(product_id, general_id, client_id, holding_location, description, quantity, unit, fsg_id_event_log):
     acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
     acceptable_locations = storage_locations.set_acceptable_locations()
     if quantity is None:
@@ -48,14 +48,16 @@ def is_entry_correct(product_id, general_id, holding_location, description, quan
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
     is_error = is_product_id_formatted_correctly(product_id)
 
-    if is_error == 1 or general_id == "" or holding_location == "" or holding_location not in acceptable_locations or\
-            description == "" or quantity == "" or unit not in acceptable_units or \
-            test_quantity.isdigit() or fsg_id_event_log == "" == False:
+    if is_error == 1 or general_id == "" or client_id == "" or holding_location == "" or\
+            holding_location not in acceptable_locations or description == "" or quantity == ""\
+            or unit not in acceptable_units or test_quantity.isdigit() or fsg_id_event_log == "" == False:
         error_list = ""
         if is_error == 1:
             error_list = error_list + "FSG ID is invalid or blank"
         if general_id == "":
             error_list = error_list + "product field is blank "
+        if client_id == "":
+            error_list = error_list + "the client ID is blank "
         if holding_location == "":
             error_list = error_list + "storage location is blank "
         if holding_location not in acceptable_locations:

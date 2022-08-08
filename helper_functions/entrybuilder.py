@@ -22,7 +22,3 @@ def ask_for_product_id():
     new_product = new_product.replace("r", "R")
     return new_product
 
-
-def build_entry(product_id, general_id, holding_location, description):
-    entry_list = [product_id, general_id, holding_location, description]
-    return entry_list
