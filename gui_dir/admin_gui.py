@@ -1,6 +1,7 @@
 import PySimpleGUI as simpleGui
 from gui_dir import user_layouts, admin_windows, gui_windows
 from database_dir import database, log_in_database_functions
+from helper_functions import password_checking
 
 
 def admin_main_window():
@@ -33,17 +34,31 @@ def add_user_button():
         duplicate_user_check = log_in_database_functions.duplicate_user_check(db_cursor, user_name)
         if duplicate_user_check:
             error_list = error_list + "user name is in use"
+
     if password == "":
         error_list = error_list + " password is empty"
     if initials == "":
         error_list = error_list + " initials are empty"
+
+    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag =\
+        password_checking.password_complexity_check(password)
+
+    if not password_length_flag and len(password) > 0:
+        gui_windows.pop_up_window("Error", "Password needs to be longer")
+        return
+
+    complexity_count = upper_case_flag + lower_case_flag + special_character_flag + number_flag
+
+    if complexity_count < 3 and len(password) > 0:
+        gui_windows.pop_up_window("Error", "Password needs to be more complex")
+        return
 
     if len(error_list) > 0:
         gui_windows.pop_up_window("Error", error_list)
         return
 
     user = [user_name, password, initials]
-    log_in_database_functions.insert_into_user_table(db_cursor,connection, user)
+    log_in_database_functions.insert_into_user_table(db_cursor, connection, user)
 
 
 def edit_a_user():
@@ -65,6 +80,19 @@ def edit_a_user():
 
     if not password:
         gui_windows.pop_up_window("Error", "Password is blank")
+        return
+
+    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag =\
+        password_checking.password_complexity_check(password)
+
+    if not password_length_flag and len(password) > 0:
+        gui_windows.pop_up_window("Error", "Password needs to be longer")
+        return
+
+    complexity_count = upper_case_flag + lower_case_flag + special_character_flag + number_flag
+
+    if complexity_count < 3 and len(password) > 0:
+        gui_windows.pop_up_window("Error", "Password needs to be more complex")
         return
 
     log_in_database_functions.change_user_password(db_cursor, connection, user_name, password)
