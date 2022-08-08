@@ -7,7 +7,7 @@ from gui_dir import gui_windows
 # r"I:\database\foundersinventorydb.sqlite"
 
 def db_location():
-    location = r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
+    location = r"I:\database\foundersinventorydb.sqlite"
     return location
 
 
@@ -64,14 +64,14 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     username = username.replace("'", "")
     if result != username:
         gui_windows.pop_up_window("error", "no valid username, speak with an it admin to get a user name")
-        return False, username
+        return False, username, False
     username = "'" + username + "'"
     result = cursor.execute(f'SELECT user_password FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
         result = row[0]
     if password != result:
         gui_windows.pop_up_window("error", "incorrect password. Closing Program")
-        return False, username
+        return False, username, False
     result = cursor.execute(f'SELECT timestamp FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
         result = row[0]

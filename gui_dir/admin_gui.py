@@ -7,7 +7,7 @@ from helper_functions import password_checking
 def admin_main_window():
     layout = user_layouts.layout_admin_window()
 
-    window = simpleGui.Window("Founders Database Admin", layout)
+    window = simpleGui.Window("Founders Database Admin", layout, element_justification='l')
 
     while True:
         event, values = window.read()

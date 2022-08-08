@@ -34,8 +34,9 @@ def get_user_initials(cursor: sqlite3.Cursor, username):
 def change_user_password(cursor: sqlite3.Cursor, connection, username, password, timestamp):
     username = "'" + username + "'"
     password = "'" + password + "'"
-    cursor.execute(f'UPDATE user_table SET user_password = {password} AND timestamp = {timestamp} '
-                   f'WHERE username = {username}')
+    cursor.execute(f'UPDATE user_table SET user_password = {password} WHERE username = {username}')
+    connection.commit()
+    cursor.execute(f'UPDATE user_table SET timestamp = {timestamp} WHERE username = {username}')
     connection.commit()
 
 

@@ -5,7 +5,7 @@ from gui_dir import layouts, logging_gui_buttons
 def logging_main_window():
     layout = layouts.layout_logging_main_window()
 
-    window = simpleGui.Window("Founders Database Logging", layout)
+    window = simpleGui.Window("Founders Database Logging", layout, element_justification='l')
 
     while True:
         event, values = window.read()

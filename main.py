@@ -9,7 +9,11 @@ def main():
     database.create_table(db_cursor)
 
     user_name, password = login_gui.main_user_window()
+
     logged_in, navigator, timestamp = database.get_log_in_from_db(db_cursor, user_name, password)
+
+    if not timestamp:
+        return
 
     timestamp = timestamp - password_checking.create_password_time_stamp()
 

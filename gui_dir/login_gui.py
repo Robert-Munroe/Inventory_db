@@ -15,7 +15,7 @@ def main_user_window():
             return user_name, password
         if event == "Submit":
             user_name = values[0]
-            password = values[1]
+            password = values['Password']
             window.close()
             return user_name, password
         window.close()

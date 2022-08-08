@@ -45,7 +45,7 @@ def get_entry_details(initials):
             quantity = values[5]
             aggregate_form = values[6]
             fsg_id_event_log = \
-                current_time + initials + " " + str(values[5]) + " " + values[6] + " " + " FSG ID created,"
+                current_time + " " + initials + " " + str(values[5]) + " " + values[6] + " " + " FSG ID created,"
             window.close()
             return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form, \
                    fsg_id_event_log
