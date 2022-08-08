@@ -1,4 +1,5 @@
 import PySimpleGUI as simpleGui
+from database_dir import storage_locations
 
 
 def layout_main_window():
@@ -14,6 +15,7 @@ def layout_main_window():
 
 
 def layout_entry_details():
+    storage_location_menu = storage_locations.set_storage_location_menu()
     layout = [
         [simpleGui.Text("Please enter an FSG ID")],
         [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText()],
@@ -22,12 +24,13 @@ def layout_entry_details():
         [simpleGui.Text("Who is the client")],
         [simpleGui.Text("Client: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Please enter a storage location")],
-        [simpleGui.Text("Storage Location:", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Storage Location:", size=(15, 1)),
+         simpleGui.Combo(storage_location_menu, default_value='Location')],
         [simpleGui.Text("Please enter a describe the container")],
         [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Please enter the product's quantity and unit")],
         [simpleGui.Text("Quantity: X Unit: Y: ", size=(15, 1)), simpleGui.InputText(),
-         simpleGui.Combo(['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)'], default_value='Unit')],
+         simpleGui.Combo(['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)'], default_value='Unit', readonly=True)],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
