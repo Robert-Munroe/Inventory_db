@@ -1,6 +1,7 @@
 import PySimpleGUI as simpleGui
 from datetime import datetime
 from gui_dir import layouts
+from helper_functions import typechecking
 
 
 def pop_up_window(window_type, attribute):
@@ -39,8 +40,11 @@ def get_entry_details(initials):
             fsg_id = values[0]
             fsg_id = fsg_id.replace("s", "S")
             product_id = values[1]
+            product_id = typechecking.force_caps(product_id)
             client_id = values[2]
+            client_id = typechecking.force_caps(client_id)
             storage_location = values[3]
+            storage_location = typechecking.force_caps(storage_location)
             container_description = values[4]
             quantity = values[5]
             aggregate_form = values[6]
@@ -108,11 +112,13 @@ def get_update_entry(fsg_id, storage_location, description, quantity, form, init
             return storage_location, description, quantity, reason_for_change
         if event == "Submit":
             storage_location = values[0]
+            storage_location = typechecking.force_caps(storage_location)
             description = values[1]
             quantity = values[2]
-            value_3 = values[3]
+            edit_reason = values[3]
             reason_for_change = \
-                current_time + " " + initials + " " + str(values[2]) + " " + form + " " + value_3.replace(",", "") + ","
+                current_time + " " + initials + " " + str(values[2]) + " " + form + " " + \
+                edit_reason.replace(",", "") + ","
             window.Close()
             return storage_location, description, quantity, reason_for_change
         window.close()
@@ -145,6 +151,7 @@ def get_product_id():
             return
         if event == "Submit":
             product_id = values[0]
+            product_id = typechecking.force_caps(product_id)
             window.close()
             return product_id
         window.close()
@@ -161,6 +168,7 @@ def get_storage_location():
             return
         if event == "Submit":
             storage_location = values[0]
+            storage_location = typechecking.force_caps(storage_location)
             window.close()
             return storage_location
         window.close()
@@ -177,6 +185,7 @@ def get_client_id():
             return
         if event == "Submit":
             client_id = values[0]
+            client_id = typechecking.force_caps(client_id)
             window.close()
             return client_id
         window.close()

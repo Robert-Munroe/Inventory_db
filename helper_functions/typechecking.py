@@ -70,3 +70,7 @@ def is_entry_correct(product_id, general_id, client_id, holding_location, descri
             error_list = error_list + "product's units are invalid or not set "
         return error_list
 
+
+def force_caps(user_input: str):
+    user_input = user_input.upper()
+    return user_input

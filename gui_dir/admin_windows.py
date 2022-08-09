@@ -1,6 +1,6 @@
 import PySimpleGUI as simpleGui
 from gui_dir import user_layouts
-from helper_functions import password_checking
+from helper_functions import password_checking, typechecking
 
 
 def add_user_window():
@@ -18,8 +18,10 @@ def add_user_window():
 
         if event == "Submit":
             user_name = values[0]
+            user_name = typechecking.force_caps(user_name)
             password = values[1]
             initials = values[2]
+            initials = typechecking.force_caps(initials)
             window.close()
             return user_name, password, initials
         user_name = ""
@@ -42,6 +44,7 @@ def get_user():
 
         if event == "Submit":
             user_name = values[0]
+            user_name = typechecking.force_caps(user_name)
             window.close()
             return user_name
         user_name = ""

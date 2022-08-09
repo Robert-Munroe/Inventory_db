@@ -1,6 +1,6 @@
 from database_dir import database, log_in_database_functions
 from gui_dir import gui, login_gui, admin_gui
-from helper_functions import password_checking
+from helper_functions import password_checking, typechecking
 
 
 def main():
@@ -9,14 +9,15 @@ def main():
     database.create_table(db_cursor)
 
     user_name, password = login_gui.main_user_window()
-
+    user_name = typechecking.force_caps(user_name)
     logged_in, navigator, timestamp = database.get_log_in_from_db(db_cursor, user_name, password)
-
     if not timestamp:
         return
 
     timestamp = timestamp - password_checking.create_password_time_stamp()
 
+    if -170 > timestamp > -180:
+        gui.gui_windows.pop_up_window("Notice", "Password will expire soon")
     if timestamp < -180:
         gui.gui_windows.pop_up_window("Error", "Change password")
         return
