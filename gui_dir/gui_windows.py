@@ -33,8 +33,8 @@ def get_entry_details(initials):
             quantity = ""
             aggregate_form = ""
             fsg_id_event_log = ""
-            return fsg_id, product_id, client_id, storage_location, container_description, quantity, \
-                   aggregate_form, fsg_id_event_log
+            return fsg_id, product_id, client_id, storage_location,\
+                   container_description, quantity, aggregate_form, fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]
@@ -69,8 +69,8 @@ def get_entry_details(initials):
 def invalid_entry_window(error_list):
     error_text = error_list
 
-    if error_text:
-        error_text = error_text + " your actions were not logged"
+    error_text = error_text + "\nyour actions were not logged"
+    error_text = error_text.replace(",", "\n")
 
     layout = [
         [simpleGui.Text("The entry was invalid and has not been added to the database")],

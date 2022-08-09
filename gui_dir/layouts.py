@@ -15,7 +15,7 @@ def layout_main_window():
 
 
 def layout_entry_details():
-    storage_location_menu = storage_locations.set_storage_location_menu()
+    storage_location_menu = storage_locations.set_acceptable_locations()
     layout = [
         [simpleGui.Text("Please enter an FSG ID")],
         [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText()],
@@ -73,10 +73,12 @@ def layout_get_product_id():
 
 
 def layout_get_entry_update(fsg_id, storage_location, description, quantity):
+    storage_location_menu = storage_locations.set_acceptable_locations()
     layout = [
         [simpleGui.Text(f"You are making changes to {fsg_id}")],
         [simpleGui.Text(f"Please enter the storage location")],
-        [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText(f"{storage_location}")],
+        [simpleGui.Text("Storage Location:", size=(15, 1)),
+         simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}')],
         [simpleGui.Text(f"Please enter the description")],
         [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}")],
         [simpleGui.Text(f"Please enter the product's quantity")],
