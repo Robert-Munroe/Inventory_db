@@ -13,15 +13,15 @@ def logging_main_window():
             fsg_id_by_product_name_button()
         if event == "Historic FSG_ID by Product Name":
             fsg_id_by_product_name_button_historic()
-        if event == "FSG_ID in storage location":
+        if event == "FSG_ID in Storage Location":
             storage_location_dump()
-        if event == "Historic FSG_ID in storage location":
+        if event == "Historic FSG_ID in Storage Location":
             storage_location_dump_historic()
         if event == "FSG_ID by client":
             fsg_id_by_client_button()
-        if event == "FSG_ID by client historic":
+        if event == "Historic FSG_ID by client":
             fsg_id_by_client_historic_button()
-        if event == "History by FSG_ID":
+        if event == "History of FSG_ID":
             fsg_id_dump()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break

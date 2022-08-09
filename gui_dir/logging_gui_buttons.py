@@ -15,7 +15,7 @@ def fsg_by_product_name():
         gui_windows.pop_up_window('error', 'product_id')
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
-    with open('list_of_product_location.txt', 'w') as f:
+    with open('fsg_by_product_name.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
 
@@ -32,7 +32,7 @@ def fsg_by_product_name_historic():
         gui_windows.pop_up_window('error', 'product_id')
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
-    with open('list_of_product_location_historic.txt', 'w') as f:
+    with open('fsg_by_product_name_historic.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
 
