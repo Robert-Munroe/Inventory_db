@@ -44,7 +44,7 @@ def test_log_in():
     assert not timestamp
 
 
-def test_get_product_id():
+def test_get_fsg_id():
     fsg_id = database.does_fsg_id_exist(db_cursor, "21S0001")
     assert fsg_id
     fsg_id = database.does_fsg_id_exist(db_cursor, "")
