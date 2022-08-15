@@ -21,4 +21,3 @@ def ask_for_product_id():
     new_product = product_id.replace("s", "S")
     new_product = new_product.replace("r", "R")
     return new_product
-

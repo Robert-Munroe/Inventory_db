@@ -14,12 +14,8 @@ def main():
     if not timestamp:
         return
 
-    timestamp = timestamp - password_checking.create_password_time_stamp()
-
-    if -170 > timestamp > -180:
-        gui.gui_windows.pop_up_window("Notice", "Password will expire soon")
-    if timestamp < -180:
-        gui.gui_windows.pop_up_window("Error", "Change password")
+    change_password = password_checking.password_expired(timestamp)
+    if change_password:
         return
 
     if logged_in:

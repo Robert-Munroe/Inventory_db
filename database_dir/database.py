@@ -103,8 +103,8 @@ def does_fsg_id_exist(cursor: sqlite3.Cursor, fsg_id):
     return False
 
 
-def update_entry(cursor: sqlite3.Cursor, connection, fsg_id, storage_location, description,
-                  quantity, reason_for_change):
+def update_entry(
+        cursor: sqlite3.Cursor, connection, fsg_id, storage_location, description, quantity, reason_for_change):
     fsg_id = "'" + fsg_id + "'"
     storage_location = "'" + storage_location + "'"
     description = "'" + description + "'"
@@ -125,7 +125,7 @@ def append_event_log(cursor: sqlite3.Cursor, fsg_id, reason_for_change):
     return "'" + result + reason_for_change + "'"
 
 
-def get_product_info(cursor: sqlite3.Cursor, connection):
+def get_product_info(cursor: sqlite3.Cursor):
     product_info = []
     fsg_id = entrybuilder.ask_for_product_id_allow_duplicate()
     if fsg_id is None:

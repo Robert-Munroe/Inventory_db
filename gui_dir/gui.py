@@ -45,7 +45,7 @@ def add_entry_button(initials):
 def view_a_sample_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
-    product_info = database.get_product_info(db_cursor, connection)
+    product_info = database.get_product_info(db_cursor)
     gui_windows.view_a_sample_window(product_info)
 
 

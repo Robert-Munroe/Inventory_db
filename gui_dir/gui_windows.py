@@ -33,8 +33,8 @@ def get_entry_details(initials):
             quantity = ""
             aggregate_form = ""
             fsg_id_event_log = ""
-            return fsg_id, product_id, client_id, storage_location,\
-                   container_description, quantity, aggregate_form, fsg_id_event_log
+            return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
+                fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]
@@ -51,8 +51,8 @@ def get_entry_details(initials):
             fsg_id_event_log = \
                 current_time + " " + initials + " " + str(values[5]) + " " + values[6] + " " + " FSG ID created,"
             window.close()
-            return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form, \
-                   fsg_id_event_log
+            return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
+                fsg_id_event_log
         fsg_id = "error"
         product_id = ""
         client_id = ""
@@ -62,8 +62,8 @@ def get_entry_details(initials):
         aggregate_form = ""
         fsg_id_event_log = ""
         window.close()
-        return fsg_id, product_id, client_id, storage_location, container_description, quantity,\
-               aggregate_form, fsg_id_event_log
+        return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
+            fsg_id_event_log
 
 
 def invalid_entry_window(error_list):
