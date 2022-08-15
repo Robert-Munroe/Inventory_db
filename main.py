@@ -1,5 +1,5 @@
 from database_dir import database, log_in_database_functions
-from gui_dir import gui, login_gui, admin_gui
+from gui_dir import gui, login_gui, admin_gui, gui_windows
 from helper_functions import password_checking, typechecking
 
 
@@ -14,8 +14,14 @@ def main():
     if not timestamp:
         return
 
-    change_password = password_checking.password_expired(timestamp)
-    if change_password:
+    timestamp_difference = password_checking.password_expired(timestamp)
+
+    if -160 > timestamp_difference > -180:
+        difference = timestamp - (-180)
+        gui_windows.pop_up_window("Notice", f'Change password in {difference} days')
+
+    if timestamp_difference < -180:
+        gui_windows.pop_up_window("Error", "Change your password by speaking with admin")
         return
 
     if logged_in:

@@ -64,6 +64,7 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     username = username.replace("'", "")
     if result != username:
         gui_windows.pop_up_window("error", "no valid username, speak with an it admin to get a user name")
+        username = username.replace("'", "")
         return False, username, False
     username = "'" + username + "'"
     result = cursor.execute(f'SELECT user_password FROM user_table WHERE (username == {username});').fetchall()
@@ -71,6 +72,7 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
         result = row[0]
     if password != result:
         gui_windows.pop_up_window("error", "incorrect password. Closing Program")
+        username = username.replace("'", "")
         return False, username, False
     result = cursor.execute(f'SELECT timestamp FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
@@ -78,18 +80,6 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     timestamp = result
     username = username.replace("'", "")
     return True, username, timestamp
-
-
-def get_product_id_from_db(cursor: sqlite3.Cursor, fsg_id):
-    fsg_id = "'" + fsg_id + "'"
-    result = cursor.execute(f'SELECT fsg_id FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()
-    for row in result:
-        result = row[0]
-    fsg_id = fsg_id.replace("'", "")
-    if result != fsg_id:
-        return 0
-    else:
-        return 1
 
 
 def does_fsg_id_exist(cursor: sqlite3.Cursor, fsg_id):
@@ -125,9 +115,8 @@ def append_event_log(cursor: sqlite3.Cursor, fsg_id, reason_for_change):
     return "'" + result + reason_for_change + "'"
 
 
-def get_product_info(cursor: sqlite3.Cursor):
+def get_product_info(cursor: sqlite3.Cursor, fsg_id):
     product_info = []
-    fsg_id = entrybuilder.ask_for_product_id_allow_duplicate()
     if fsg_id is None:
         return
     fsg_id = "'" + fsg_id + "'"

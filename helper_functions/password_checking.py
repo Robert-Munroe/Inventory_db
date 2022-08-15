@@ -1,9 +1,8 @@
-from datetime import datetime
+from datetime import datetime, date
 from helper_functions import special_characters
-from gui_dir import gui_windows
 
 
-def password_complexity_check(password):
+def password_complexity_check(password: str):
     password_length_flag = False
     if len(password) >= 7:
         password_length_flag = True
@@ -37,30 +36,22 @@ def password_complexity_check(password):
 
 
 def create_password_time_stamp():
+    current_time = datetime.now()
+    current_year = int(current_time.strftime('%Y'))
+    current_month = int(current_time.strftime('%m'))
+    current_day = int(current_time.strftime('%d'))
 
-    year = datetime.now()
-    current_year = int(year.strftime('%y'))
-    month = datetime.now()
-    current_month = int(month.strftime('%m'))
-    day = datetime.now()
-    current_day = int(day.strftime('%d'))
+    date_val = date(current_year, current_month, current_day)
+    day_of_year = date_val.strftime('%j')
 
-    current_year = current_year % 2000
+    current_year = int(current_time.strftime('%y'))
     current_year = current_year * 1000
-    current_month = (current_month-1) * 30
 
-    timestamp = current_day + current_month + current_year
+    timestamp = current_year + int(day_of_year)
 
     return timestamp
 
 
 def password_expired(timestamp):
-    timestamp = timestamp - create_password_time_stamp()
-
-    if -170 > timestamp > -180:
-        difference = timestamp - (-180)
-        gui_windows.pop_up_window("Notice", f'Change password in {difference} days')
-        return False
-    if timestamp < -180:
-        gui_windows.pop_up_window("Error", "Change your password by speaking with admin")
-        return True
+    timestamp_difference = timestamp - create_password_time_stamp()
+    return timestamp_difference

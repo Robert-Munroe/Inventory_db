@@ -31,7 +31,7 @@ def add_entry_button(initials):
     product_id, general_id, client_id, holding_location, description, quantity, aggregate_form, fsg_id_event_log \
         = gui_windows.get_entry_details(initials)
     error_list = typechecking.is_entry_correct(product_id, general_id, client_id, holding_location, description,
-                                               quantity, aggregate_form, fsg_id_event_log)
+                                               quantity, aggregate_form)
 
     if error_list:
         gui_windows.invalid_entry_window(error_list)
@@ -45,7 +45,9 @@ def add_entry_button(initials):
 def view_a_sample_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
-    product_info = database.get_product_info(db_cursor)
+    fsg_id = gui_windows.get_fsg_id()
+    fsg_id = entrybuilder.ask_for_fsg_id_allow_duplicate(fsg_id)
+    product_info = database.get_product_info(db_cursor, fsg_id)
     gui_windows.view_a_sample_window(product_info)
 
 
@@ -53,8 +55,8 @@ def update_an_fsg_id_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     acceptable_locations = storage_locations.set_acceptable_locations()
-
-    fsg_id = entrybuilder.ask_for_product_id_allow_duplicate()
+    fsg_id = gui_windows.get_fsg_id()
+    fsg_id = entrybuilder.ask_for_fsg_id_allow_duplicate(fsg_id)
 
     if not fsg_id:
         gui_windows.pop_up_window("Error", "FSG_ID does not exist")

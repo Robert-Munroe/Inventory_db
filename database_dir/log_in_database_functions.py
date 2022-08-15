@@ -12,7 +12,7 @@ def duplicate_user_check(cursor: sqlite3.Cursor, username):
     return False
 
 
-def user_exist(cursor: sqlite3.Cursor, username):
+def user_exist(cursor: sqlite3.Cursor, username: str):
     username = "'" + username + "'"
     result = cursor.execute(f'SELECT username FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
@@ -23,7 +23,7 @@ def user_exist(cursor: sqlite3.Cursor, username):
     return False
 
 
-def get_user_initials(cursor: sqlite3.Cursor, username):
+def get_user_initials(cursor: sqlite3.Cursor, username: str):
     username = "'" + username + "'"
     result = cursor.execute(f'SELECT initials FROM user_table WHERE (username == {username});').fetchall()
     for row in result:
