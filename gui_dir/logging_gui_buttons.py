@@ -7,7 +7,8 @@ def fsg_by_product_name(product_id):
     connection, db_cursor = database.open_db(location_of_db)
     list_of_fsg_ids_and_locations = logging_functions.get_locations_of_product_id(product_id, db_cursor)
     if not list_of_fsg_ids_and_locations:
-        gui_windows.pop_up_window('error', 'product_id')
+        gui_windows.pop_up_window('error', 'no product_id')
+        return
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
     with open('fsg_by_product_name.txt', 'w') as f:
@@ -21,7 +22,8 @@ def fsg_by_product_name_historic(product_id):
     connection, db_cursor = database.open_db(location_of_db)
     list_of_fsg_ids_and_locations = logging_functions.get_locations_of_product_id_historic(product_id, db_cursor)
     if not list_of_fsg_ids_and_locations:
-        gui_windows.pop_up_window('error', 'product_id')
+        gui_windows.pop_up_window('error', 'no product_id')
+        return
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
     with open('fsg_by_product_name_historic.txt', 'w') as f:
@@ -52,7 +54,6 @@ def get_fsg_id_from_storage_location_historic(storage_location):
     if not list_of_records:
         gui_windows.pop_up_window('error', 'empty storage location')
         return
-
     list_entries_lists = [list(i) for i in list_of_records]
 
     with open(f'list_of_samples_in_{storage_location}_historic.txt', 'w') as f:
