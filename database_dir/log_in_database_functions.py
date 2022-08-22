@@ -47,7 +47,7 @@ def insert_into_user_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
 
 
 def get_all_users(cursor):
-    result = cursor.execute(f'SELECT * FROM user_table;').fetchall()
+    result = cursor.execute('SELECT * FROM user_table;').fetchall()
     list_of_locations = []
     counter = 0
     for row in result:

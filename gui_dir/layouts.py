@@ -76,14 +76,14 @@ def layout_get_entry_update(fsg_id, storage_location, description, quantity):
     storage_location_menu = storage_locations.set_acceptable_locations()
     layout = [
         [simpleGui.Text(f"You are making changes to {fsg_id}")],
-        [simpleGui.Text(f"Please enter the storage location")],
+        [simpleGui.Text("Please enter the storage location")],
         [simpleGui.Text("Storage Location:", size=(15, 1)),
          simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}')],
-        [simpleGui.Text(f"Please enter the description")],
+        [simpleGui.Text("Please enter the description")],
         [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}")],
-        [simpleGui.Text(f"Please enter the product's quantity")],
+        [simpleGui.Text("Please enter the product's quantity")],
         [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText(f"{quantity}")],
-        [simpleGui.Text(f"Please enter a reason for your edit")],
+        [simpleGui.Text("Please enter a reason for your edit")],
         [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
