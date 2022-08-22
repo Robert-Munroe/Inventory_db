@@ -1,5 +1,4 @@
 import sqlite3
-from helper_functions import entrybuilder
 from gui_dir import gui_windows
 
 

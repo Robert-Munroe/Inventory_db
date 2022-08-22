@@ -2,7 +2,6 @@
 from database_dir import database, log_in_database_functions
 from gui_dir import logging_gui_buttons
 
-
 # creating testing database
 location_of_db = r"I:\database\founder_test_db.sqlite"
 connection, db_cursor = database.open_db(location_of_db)
@@ -13,7 +12,6 @@ connection.commit()
 database.create_table(db_cursor)
 database.create_user_table(db_cursor)
 database.create_inventory_table(db_cursor)
-
 
 entry_for_inventory_table = ["21S0001", "WATER", "CLIENT-0003", "F7R1S1BA", "CLEAR JAR", 5, "G", "EVENT_LOG, "]
 database.insert_into_inventory_table(db_cursor, connection, entry_for_inventory_table)
@@ -98,5 +96,22 @@ def test_change_password():
     assert result == [("FSGRAMUNROE", "Pa$$w0rd", "RAM", 22219)]
 
 
-def test_logging():
-    return
+def test_logging_product_id():
+    logging_gui_buttons.fsg_by_product_name("WATER", db_cursor)
+    f = open(r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\tests\db_tests\fsg_by_product_name.txt', "r")
+    expected_value = ["['21S0001', 'WATER', 'CLIENT-0003', 'F7R1S1BA', 'CLEAR JAR', 5, 'G', "
+                      "'EVENT_LOG, ']\n"]
+    readfile = f.readlines()
+    assert readfile == expected_value
+
+
+def test_logging_product_id_historic():
+    logging_gui_buttons.fsg_by_product_name_historic("WATER", db_cursor)
+    path = r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\tests\db_tests\fsg_by_product_name_historic.txt'
+    f = open(path, "r")
+    expected_value = ["['21S0001', 'WATER', 'CLIENT-0003', 'F7R1S1BA', 'CLEAR JAR', 5, 'G', "
+                      "'EVENT_LOG, ']\n",
+                      "['21S0002', 'WATER', 'CLIENT-0003', 'F7R1S1BA', 'CLEAR JAR', 0, 'G', "
+                      "'EVENT_LOG, ']\n"]
+    readfile = f.readlines()
+    assert readfile == expected_value

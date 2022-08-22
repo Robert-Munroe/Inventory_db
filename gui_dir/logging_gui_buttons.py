@@ -1,10 +1,8 @@
-from database_dir import logging_functions, database
+from database_dir import logging_functions
 from gui_dir import gui_windows
 
 
-def fsg_by_product_name(product_id):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+def fsg_by_product_name(product_id, db_cursor):
     list_of_fsg_ids_and_locations = logging_functions.get_locations_of_product_id(product_id, db_cursor)
     if not list_of_fsg_ids_and_locations:
         gui_windows.pop_up_window('error', 'no product_id')
@@ -17,9 +15,7 @@ def fsg_by_product_name(product_id):
     f.close()
 
 
-def fsg_by_product_name_historic(product_id):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+def fsg_by_product_name_historic(product_id, db_cursor):
     list_of_fsg_ids_and_locations = logging_functions.get_locations_of_product_id_historic(product_id, db_cursor)
     if not list_of_fsg_ids_and_locations:
         gui_windows.pop_up_window('error', 'no product_id')
@@ -32,9 +28,7 @@ def fsg_by_product_name_historic(product_id):
     f.close()
 
 
-def get_fsg_id_from_storage_location(storage_location):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+def get_fsg_id_from_storage_location(storage_location, db_cursor):
     list_of_records = logging_functions.get_fsg_id_from_storage_location(storage_location, db_cursor)
     if not list_of_records:
         gui_windows.pop_up_window('error', 'empty storage location')
@@ -47,9 +41,7 @@ def get_fsg_id_from_storage_location(storage_location):
     f.close()
 
 
-def get_fsg_id_from_storage_location_historic(storage_location):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+def get_fsg_id_from_storage_location_historic(storage_location, db_cursor):
     list_of_records = logging_functions.get_fsg_id_from_storage_location_historic(storage_location, db_cursor)
     if not list_of_records:
         gui_windows.pop_up_window('error', 'empty storage location')
@@ -62,9 +54,7 @@ def get_fsg_id_from_storage_location_historic(storage_location):
     f.close()
 
 
-def get_fsg_id_by_client(client):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+def get_fsg_id_by_client(client, db_cursor):
     list_of_records = logging_functions.get_fsg_id_by_client(client, db_cursor)
 
     if not list_of_records:
@@ -79,10 +69,7 @@ def get_fsg_id_by_client(client):
     f.close()
 
 
-def get_fsg_id_by_client_historic(client):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-
+def get_fsg_id_by_client_historic(client, db_cursor):
     list_of_records = logging_functions.get_fsg_id_by_client_historic(client, db_cursor)
 
     if not list_of_records:
@@ -97,10 +84,7 @@ def get_fsg_id_by_client_historic(client):
     f.close()
 
 
-def fsg_id_dump_button(fsg_id):
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-
+def fsg_id_dump_button(fsg_id, db_cursor):
     record = logging_functions.get_audit_log_by_fsg_id(fsg_id, db_cursor)
 
     if not record:
