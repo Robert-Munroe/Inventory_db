@@ -1,7 +1,4 @@
-import sys
 from helper_functions import entrybuilder
-
-sys.path.insert(0, r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\helper_functions')
 
 
 def test_entry_builder():
