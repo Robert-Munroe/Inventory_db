@@ -1,5 +1,4 @@
 import sqlite3
-from gui_dir import gui_windows
 
 
 # r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
