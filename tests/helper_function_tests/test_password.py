@@ -1,5 +1,8 @@
+import sys
 from helper_functions import password_checking
 from datetime import datetime, date
+
+sys.path.insert(0, r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\helper_functions')
 
 
 def test_password_complexity():

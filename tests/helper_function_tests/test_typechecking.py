@@ -1,4 +1,7 @@
+import sys
 from helper_functions import typechecking
+
+sys.path.insert(0, r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\helper_functions')
 
 
 def count_case(user_input, output):

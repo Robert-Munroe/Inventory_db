@@ -2,8 +2,8 @@ import sys
 from database_dir import database, log_in_database_functions
 from gui_dir import logging_gui_buttons
 
-sys.path.insert(0, 'foundersinventorydatabase/database_dir')
-sys.path.insert(0, 'foundersinventorydatabase/gui_dir')
+sys.path.insert(0, r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\database_dir')
+sys.path.insert(0, r'C:\Users\rmunr\PycharmProjects\foundersinventorydatabase\gui_dir')
 
 # creating testing database
 location_of_db = r"I:\database\founder_test_db.sqlite"
