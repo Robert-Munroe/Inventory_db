@@ -40,35 +40,68 @@ def is_product_id_formatted_correctly_allow_duplicate(product_id):
     return 0
 
 
-def is_entry_correct(product_id, general_id, client_id, holding_location, description, quantity, unit):
-    acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
+def is_fsg_id_correct(fsg_id):
+    is_error = is_product_id_formatted_correctly(fsg_id)
+    if is_error == 1:
+        return False, "FSG ID is invalid or blank, "
+    else:
+        return True, ""
+
+
+def is_storage_location_correct(storage_location):
     acceptable_locations = storage_locations.set_acceptable_locations()
+    if storage_location not in acceptable_locations:
+        return False, "Storage location is not a valid location, "
+    else:
+        return True, ""
+
+
+def is_quantity_correct(quantity):
     if quantity is None:
         quantity = 'a'
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
-    is_error = is_product_id_formatted_correctly(product_id)
+    if quantity == "" or not test_quantity.isdigit():
+        return False, "Quantity is not set or not a valid number, "
+    else:
+        return True, ""
 
-    if is_error == 1 or general_id == "" or client_id == "" or holding_location == "" or \
-            holding_location not in acceptable_locations or description == "" or quantity == "" \
-            or unit not in acceptable_units or test_quantity.isdigit() == False:
-        error_list = ""
-        if is_error == 1:
-            error_list = error_list + "FSG ID is invalid or blank, "
-        if general_id == "":
-            error_list = error_list + "product field is blank, "
-        if client_id == "":
-            error_list = error_list + "the client ID is blank, "
-        if holding_location == "":
-            error_list = error_list + "storage location is blank, "
-        if holding_location not in acceptable_locations and holding_location != "":
-            error_list = error_list + "storage location is invalid, "
-        if description == "":
-            error_list = error_list + "container description is blank, "
-        if quantity == "" or test_quantity.isdigit() == False:
-            error_list = error_list + "product's quantity is not set, or not a valid number, "
-        if unit not in acceptable_units:
-            error_list = error_list + "product's units are invalid or not set"
-        return error_list
+
+def is_unit_correct(unit):
+    acceptable_units = ["g", "ml", "container(s)", "bag(s)", "vial(s)"]
+    if unit not in acceptable_units:
+        return False, "entry's units are invalid"
+    else:
+        return True, ""
+
+
+def is_entry_correct(fsg_id, general_id, client_id, storage_location, description, quantity, unit):
+    error_list = ""
+    state, statement = is_fsg_id_correct(fsg_id)
+    if not state:
+        error_list = error_list + statement
+
+    if general_id == "":
+        error_list = error_list + "Product ID is blank, "
+
+    if client_id == "":
+        error_list = error_list + "Client ID is blank, "
+
+    state, statement = is_storage_location_correct(storage_location)
+    if not state:
+        error_list = error_list + statement
+
+    if description == "":
+        error_list = error_list + "Description is blank, "
+
+    state, statement = is_quantity_correct(quantity)
+    if not state:
+        error_list = error_list + statement
+
+    state, statement = is_unit_correct(unit)
+    if not state:
+        error_list = error_list + statement
+
+    return error_list
 
 
 def force_caps(user_input: str):
