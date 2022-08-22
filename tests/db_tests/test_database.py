@@ -102,6 +102,7 @@ def test_logging_product_id():
     expected_value = ["['21S0001', 'WATER', 'CLIENT-0003', 'F7R1S1BA', 'CLEAR JAR', 5, 'G', "
                       "'EVENT_LOG, ']\n"]
     readfile = f.readlines()
+    f.close()
     assert readfile == expected_value
 
 
@@ -114,4 +115,5 @@ def test_logging_product_id_historic():
                       "['21S0002', 'WATER', 'CLIENT-0003', 'F7R1S1BA', 'CLEAR JAR', 0, 'G', "
                       "'EVENT_LOG, ']\n"]
     readfile = f.readlines()
+    f.close()
     assert readfile == expected_value
