@@ -1,5 +1,7 @@
 # import sqlite3
 from database_dir import database, log_in_database_functions
+from gui_dir import logging_gui_buttons
+
 
 # creating testing database
 location_of_db = r"I:\database\founder_test_db.sqlite"
@@ -94,3 +96,7 @@ def test_change_password():
     log_in_database_functions.change_user_password(db_cursor, connection, "FSGRAMUNROE", "Pa$$w0rd", 22219)
     result = log_in_database_functions.get_all_users(db_cursor)
     assert result == [("FSGRAMUNROE", "Pa$$w0rd", "RAM", 22219)]
+
+
+def test_logging():
+    return

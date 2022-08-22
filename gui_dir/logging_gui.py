@@ -1,5 +1,8 @@
 import PySimpleGUI as simpleGui
-from gui_dir import layouts, logging_gui_buttons
+
+from database_dir import storage_locations
+from gui_dir import layouts, logging_gui_buttons, gui_windows
+from helper_functions import typechecking
 
 
 def logging_main_window():
@@ -29,28 +32,60 @@ def logging_main_window():
 
 
 def fsg_id_by_product_name_button():
-    logging_gui_buttons.fsg_by_product_name()
+    product_id = gui_windows.get_product_id()
+    if not product_id:
+        gui_windows.pop_up_window("Error", "No product ID entered")
+        return
+    logging_gui_buttons.fsg_by_product_name(product_id)
 
 
 def fsg_id_by_product_name_button_historic():
-    logging_gui_buttons.fsg_by_product_name_historic()
+    product_id = gui_windows.get_product_id()
+    if not product_id:
+        gui_windows.pop_up_window("Error", "No product ID entered")
+        return
+    logging_gui_buttons.fsg_by_product_name_historic(product_id)
 
 
 def storage_location_dump():
-    logging_gui_buttons.get_fsg_id_from_storage_location()
+    storage_location = gui_windows.get_storage_location()
+    acceptable_locations = storage_locations.set_acceptable_locations()
+    if storage_location not in acceptable_locations:
+        gui_windows.pop_up_window("Error", "Not a valid storage location")
+        return
+
+    logging_gui_buttons.get_fsg_id_from_storage_location(storage_location)
 
 
 def storage_location_dump_historic():
-    logging_gui_buttons.get_fsg_id_from_storage_location_historic()
+    acceptable_locations = storage_locations.set_acceptable_locations()
+    storage_location = gui_windows.get_storage_location()
+
+    if storage_location not in acceptable_locations:
+        gui_windows.pop_up_window("Error", "Not a valid storage location")
+        return
+
+    logging_gui_buttons.get_fsg_id_from_storage_location_historic(storage_location)
 
 
 def fsg_id_by_client_button():
-    logging_gui_buttons.get_fsg_id_by_client()
+    client = gui_windows.get_client_id()
+    logging_gui_buttons.get_fsg_id_by_client(client)
 
 
 def fsg_id_by_client_historic_button():
-    logging_gui_buttons.get_fsg_id_by_client_historic()
+    client = gui_windows.get_client_id()
+    logging_gui_buttons.get_fsg_id_by_client_historic(client)
 
 
 def fsg_id_dump():
-    logging_gui_buttons.fsg_id_dump_button()
+    fsg_id = gui_windows.get_fsg_id()
+
+    is_error = typechecking.is_product_id_formatted_correctly_allow_duplicate(fsg_id)
+    fsg_id = fsg_id.replace("s", "S")
+    fsg_id = fsg_id.replace("r", "R")
+
+    if is_error == 1:
+        gui_windows.pop_up_window("Error", "FSG ID formatted incorrectly")
+        return
+    logging_gui_buttons.fsg_id_dump_button(fsg_id)
