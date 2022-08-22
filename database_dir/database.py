@@ -62,7 +62,6 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
         result = row[0]
     username = username.replace("'", "")
     if result != username:
-        gui_windows.pop_up_window("error", "no valid username, speak with an it admin to get a user name")
         username = username.replace("'", "")
         return False, username, False
     username = "'" + username + "'"
@@ -70,7 +69,6 @@ def get_log_in_from_db(cursor: sqlite3.Cursor, username, password):
     for row in result:
         result = row[0]
     if password != result:
-        gui_windows.pop_up_window("error", "incorrect password. Closing Program")
         username = username.replace("'", "")
         return False, username, False
     result = cursor.execute(f'SELECT timestamp FROM user_table WHERE (username == {username});').fetchall()

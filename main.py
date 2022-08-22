@@ -11,6 +11,10 @@ def main():
     user_name, password = login_gui.main_user_window()
     user_name = typechecking.force_caps(user_name)
     logged_in, navigator, timestamp = database.get_log_in_from_db(db_cursor, user_name, password)
+
+    if not logged_in and navigator and not timestamp:
+        gui_windows.pop_up_window("error", "incorrect log in")
+
     if not timestamp:
         return
 
