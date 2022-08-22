@@ -69,44 +69,44 @@ def test_is_product_id_formatted_correctly_duplicate():
 
 
 def test_correct_entry():
-    fsg_id = "10s0001"
+    fsg_id = "10s0001"  # not in database
     general_id = 'water'
     client_id = 'client 0003'
-    holding_location = 'F7R1S1BA'
+    holding_location = "F7R1S1BA"
     description = 'Clear Glass Jar'
     quantity = '5'
     unit = 'g'
     message = typechecking.is_entry_correct(fsg_id, general_id, client_id, holding_location, description, quantity,
                                             unit)
-    assert message is None
+    assert message == 'FSG ID is invalid or blank, '
 
     message = typechecking.is_entry_correct("", general_id, client_id, holding_location, description, quantity, unit)
     assert message == "FSG ID is invalid or blank, "
 
     message = typechecking.is_entry_correct("", "", client_id, holding_location, description, quantity, unit)
-    assert message == "FSG ID is invalid or blank, product field is blank, "
+    assert message == "FSG ID is invalid or blank, Product ID is blank, "
 
     message = typechecking.is_entry_correct("", "", "", holding_location, description, quantity, unit)
-    assert message == "FSG ID is invalid or blank, product field is blank, the client ID is blank, "
+    assert message == "FSG ID is invalid or blank, Product ID is blank, Client ID is blank, "
 
     message = typechecking.is_entry_correct("", "", "", "", description, quantity, unit)
-    assert message == "FSG ID is invalid or blank, product field is blank, the client ID is blank, " \
-                      "storage location is blank, "
+    assert message == "FSG ID is invalid or blank, Product ID is blank, Client ID is blank, " \
+                      "Storage location is not a valid location, "
 
     message = typechecking.is_entry_correct("", "", "", "", "", quantity, unit)
-    assert message == "FSG ID is invalid or blank, product field is blank, the client ID is blank," \
-                      " storage location is blank, container description is blank, "
+    assert message == "FSG ID is invalid or blank, Product ID is blank, Client ID is blank," \
+                      " Storage location is not a valid location, Description is blank, "
 
     message = typechecking.is_entry_correct("", "", "", "", "", "", unit)
-    assert message == "FSG ID is invalid or blank, product field is blank, the client ID is blank," \
-                      " storage location is blank, container description is blank," \
-                      " product's quantity is not set, or not a valid number, "
+    assert message == "FSG ID is invalid or blank, Product ID is blank, Client ID is blank," \
+                      " Storage location is not a valid location, Description is blank," \
+                      " Quantity is not set or not a valid number, "
 
     message = typechecking.is_entry_correct("", "", "", "", "", "", "")
-    assert message == "FSG ID is invalid or blank, product field is blank, the client ID is blank," \
-                      " storage location is blank, container description is blank," \
-                      " product's quantity is not set, or not a valid number, product's units are invalid or not set"
+    assert message == "FSG ID is invalid or blank, Product ID is blank, Client ID is blank," \
+                      " Storage location is not a valid location, Description is blank," \
+                      " Quantity is not set or not a valid number, entry's units are invalid"
 
     message = typechecking.is_entry_correct("21s0001", general_id, client_id, holding_location, description, quantity,
                                             unit)
-    assert message == "FSG ID is invalid or blank, "
+    assert message == ""
