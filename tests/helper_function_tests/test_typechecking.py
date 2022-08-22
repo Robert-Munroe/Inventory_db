@@ -78,7 +78,7 @@ def test_correct_entry():
     unit = 'g'
     message = typechecking.is_entry_correct(fsg_id, general_id, client_id, holding_location, description, quantity,
                                             unit)
-    assert message == 'FSG ID is invalid or blank, '
+    assert message == ''
 
     message = typechecking.is_entry_correct("", general_id, client_id, holding_location, description, quantity, unit)
     assert message == "FSG ID is invalid or blank, "
@@ -109,4 +109,4 @@ def test_correct_entry():
 
     message = typechecking.is_entry_correct("21s0001", general_id, client_id, holding_location, description, quantity,
                                             unit)
-    assert message == ""
+    assert message == 'FSG ID is invalid or blank, '

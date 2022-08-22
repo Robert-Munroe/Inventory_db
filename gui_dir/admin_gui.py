@@ -1,6 +1,7 @@
 import PySimpleGUI as simpleGui
-from gui_dir import user_layouts, admin_windows, gui_windows
+
 from database_dir import database, log_in_database_functions
+from gui_dir import user_layouts, admin_windows, gui_windows
 from helper_functions import password_checking
 
 

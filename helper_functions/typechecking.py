@@ -18,7 +18,7 @@ def is_product_id_formatted_correctly(product_id):
     if len(product_id) != 7:
         return 1
 
-    if not database.does_fsg_id_exist(db_cursor, new_product):
+    if database.does_fsg_id_exist(db_cursor, new_product):
         return 1
     return 0
 
@@ -74,7 +74,7 @@ def is_unit_correct(unit):
         return True, ""
 
 
-def is_entry_correct(fsg_id, general_id, client_id, storage_location, description, quantity, unit):
+def is_entry_correct(fsg_id: str, general_id, client_id, storage_location, description, quantity, unit):
     error_list = ""
     state, statement = is_fsg_id_correct(fsg_id)
     if not state:

@@ -1,6 +1,7 @@
 import PySimpleGUI as simpleGui
-from gui_dir import layouts, gui_windows, logging_gui
+
 from database_dir import database, storage_locations
+from gui_dir import layouts, gui_windows, logging_gui
 from helper_functions import typechecking, entrybuilder
 
 

@@ -1,4 +1,5 @@
 import PySimpleGUI as simpleGui
+
 from database_dir import storage_locations
 
 

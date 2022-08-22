@@ -1,5 +1,6 @@
-from helper_functions import password_checking
 from datetime import datetime, date
+
+from helper_functions import password_checking
 
 
 def test_password_complexity():

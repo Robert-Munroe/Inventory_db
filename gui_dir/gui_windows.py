@@ -1,5 +1,7 @@
-import PySimpleGUI as simpleGui
 from datetime import datetime
+
+import PySimpleGUI as simpleGui
+
 from gui_dir import layouts
 from helper_functions import typechecking
 
