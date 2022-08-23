@@ -142,3 +142,12 @@ def get_previous_entry_info(fsg_id, cursor):
         previous_quantity = row[2]
         previous_form = row[3]
         return previous_storage_location, previous_description, previous_quantity, previous_form
+
+
+def get_last_fsg_id_from_table(cursor):
+    highest_fsg_id = ""
+    entry = cursor.execute('SELECT * FROM founders_inventory ORDER BY fsg_id DESC LIMIT 1;')
+    for row in entry:
+        highest_fsg_id = row[0]
+
+    return highest_fsg_id

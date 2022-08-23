@@ -1,5 +1,6 @@
 import PySimpleGUI as simpleGui
 
+import database_dir.database
 from database_dir import storage_locations
 
 
@@ -17,9 +18,12 @@ def layout_main_window():
 
 def layout_entry_details():
     storage_location_menu = storage_locations.set_acceptable_locations()
+    location_of_db = database_dir.database.db_location()
+    connection, db_cursor = database_dir.database.open_db(location_of_db)
+    last_fsg_id = database_dir.database.get_last_fsg_id_from_table(db_cursor)
     layout = [
         [simpleGui.Text("Please enter an FSG ID")],
-        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText(f'{last_fsg_id}')],
         [simpleGui.Text("What is the product")],
         [simpleGui.Text("Product: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Who is the client")],
