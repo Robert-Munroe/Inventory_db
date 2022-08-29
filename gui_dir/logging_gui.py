@@ -80,6 +80,9 @@ def fsg_id_by_client_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     client = gui_windows.get_client_id()
+    if not client:
+        gui_windows.pop_up_window("Error", "No valid client")
+        return
     logging_gui_buttons.get_fsg_id_by_client(client, db_cursor)
 
 
@@ -87,6 +90,9 @@ def fsg_id_by_client_historic_button():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     client = gui_windows.get_client_id()
+    if not client:
+        gui_windows.pop_up_window("Error", "No valid client")
+        return
     logging_gui_buttons.get_fsg_id_by_client_historic(client, db_cursor)
 
 
@@ -94,6 +100,9 @@ def fsg_id_dump():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     fsg_id = gui_windows.get_fsg_id()
+    if not fsg_id:
+        gui_windows.pop_up_window("Error", "No valid FSG_ID")
+        return
 
     is_error = typechecking.is_product_id_formatted_correctly_allow_duplicate(fsg_id)
     fsg_id = fsg_id.replace("s", "S")

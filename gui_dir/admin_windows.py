@@ -60,11 +60,16 @@ def get_change_user_password(username):
         event, values = window.read()
         if event == "Cancel":
             window.close()
-            return
+            password = ""
+            timestamp = ""
+            return password, timestamp
         if event == "Submit":
             password = values[0]
             timestamp = password_checking.create_password_time_stamp()
             window.Close()
             return password, timestamp
         window.close()
-        return
+        password = ""
+        timestamp = ""
+        return password, timestamp
+
