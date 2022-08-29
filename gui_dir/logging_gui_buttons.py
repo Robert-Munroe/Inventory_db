@@ -9,9 +9,15 @@ def fsg_by_product_name(product_id, db_cursor):
         return
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
-    with open('fsg_by_product_name.txt', 'w') as f:
+    with open(f'fsg_by_{product_id}.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
+
+    with open(f'fsg_by_{product_id}.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'fsg_by_{product_id}.txt', 'w') as new_file:
+            new_file.write(line)
     f.close()
 
 
@@ -22,9 +28,14 @@ def fsg_by_product_name_historic(product_id, db_cursor):
         return
     list_entries_lists = [list(i) for i in list_of_fsg_ids_and_locations]
 
-    with open('fsg_by_product_name_historic.txt', 'w') as f:
+    with open(f'fsg_by_{product_id}_historic.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
+    with open(f'fsg_by_{product_id}_historic.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'fsg_by_{product_id}_historic.txt', 'w') as new_file:
+            new_file.write(line)
     f.close()
 
 
@@ -39,6 +50,12 @@ def get_fsg_id_from_storage_location(storage_location, db_cursor):
         for item in list_entries_lists:
             f.write("%s\n" % item)
     f.close()
+    with open(f'list_of_samples_in_{storage_location}.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'list_of_samples_in_{storage_location}.txt', 'w') as new_file:
+            new_file.write(line)
+    f.close()
 
 
 def get_fsg_id_from_storage_location_historic(storage_location, db_cursor):
@@ -51,6 +68,12 @@ def get_fsg_id_from_storage_location_historic(storage_location, db_cursor):
     with open(f'list_of_samples_in_{storage_location}_historic.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
+    f.close()
+    with open(f'list_of_samples_in_{storage_location}_historic.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'list_of_samples_in_{storage_location}_historic.txt', 'w') as new_file:
+            new_file.write(line)
     f.close()
 
 
@@ -67,6 +90,12 @@ def get_fsg_id_by_client(client, db_cursor):
         for item in entries_lists:
             f.write("%s\n" % item)
     f.close()
+    with open(f'list_of_samples_for_{client}.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'list_of_samples_for_{client}.txt', 'w') as new_file:
+            new_file.write(line)
+    f.close()
 
 
 def get_fsg_id_by_client_historic(client, db_cursor):
@@ -81,6 +110,12 @@ def get_fsg_id_by_client_historic(client, db_cursor):
     with open(f'list_of_samples_for_{client}_historic.txt', 'w') as f:
         for item in entries_lists:
             f.write("%s\n" % item)
+    f.close()
+    with open(f'list_of_samples_for_{client}_historic.txt', 'r') as f:
+        for line in f.readlines():
+            line = line.replace('[', "").replace(']', "").replace("'", "")
+        with open(f'list_of_samples_for_{client}_historic.txt', 'w') as new_file:
+            new_file.write(line)
     f.close()
 
 

@@ -1,5 +1,7 @@
 def set_acceptable_locations():
     acceptable_locations = [
+        'F5S1', 'F5S2', 'F5S3', 'F5S4', 'F5S5',
+        'Freezer 3', 'Stability 1',
         'F7R1S1BA', 'F7R1S1BB', 'F7R1S1BC', 'F7R1S1BD', 'F7R1S1BE',
         'F7R1S2BA', 'F7R1S2BB', 'F7R1S2BC', 'F7R1S2BD', 'F7R1S2BE', 'F7R1S2BF',
         'F7R1S3BA', 'F7R1S3BB', 'F7R1S3BC', 'F7R1S3BD', 'F7R1S3BE', 'F7R1S3BF',
