@@ -20,13 +20,14 @@ def main():
 
     timestamp_difference = password_checking.password_expired(timestamp)
 
-    if -160 > timestamp_difference > -180:
-        difference = timestamp_difference - (-180)
-        gui_windows.pop_up_window("Notice", f'Change password in {difference} days')
+    if navigator != "SYSADMIN":
+        if -160 > timestamp_difference > -180:
+            difference = timestamp_difference - (-180)
+            gui_windows.pop_up_window("Notice", f'Change password in {difference} days')
 
-    if timestamp_difference < -180:
-        gui_windows.pop_up_window("Error", "Change your password by speaking with admin")
-        return
+        if timestamp_difference < -180:
+            gui_windows.pop_up_window("Error", "Change your password by speaking with admin")
+            return
 
     if logged_in:
         initials = log_in_database_functions.get_user_initials(db_cursor, user_name)

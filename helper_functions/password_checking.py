@@ -56,3 +56,29 @@ def create_password_time_stamp():
 def password_expired(timestamp):
     timestamp_difference = timestamp - create_password_time_stamp()
     return timestamp_difference
+
+
+def build_password_list(current_password_history_string):
+    current_password_history_string = current_password_history_string.replace("'", "").replace('"', "")
+    first, second, third = current_password_history_string.split(",")
+
+    first = first.lstrip(" ")
+    second = second.lstrip(" ")
+    third = third.lstrip(" ")
+
+    password_history_list = [first, second, third]
+    return password_history_list
+
+
+def check_password_history(current_password_history, new_password):
+    if new_password in current_password_history:
+        return True
+    return False
+
+
+def build_password_history(current_password_history, new_password):
+    first, second, third = current_password_history.split(",")
+    new_password_history = [second, third, new_password]
+    entry_for_db = new_password_history.__str__()
+    entry_for_db = str(entry_for_db).replace("[", "").replace("]", "").replace("'", "").replace(" ", "")
+    return entry_for_db

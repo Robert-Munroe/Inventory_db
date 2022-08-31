@@ -25,7 +25,8 @@ def create_user_table(cursor: sqlite3.Cursor):
     username TEXT PRIMARY KEY,
     user_password TEXT DEFAULT NULL,
     initials TEXT DEFAULT NULL,
-    timestamp INT DEFAULT NULL
+    timestamp INT DEFAULT NULL,
+    password_history TEXT DEFAULT NULL
     );''')
 
 

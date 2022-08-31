@@ -41,7 +41,7 @@ def add_user_button():
     if initials == "":
         error_list = error_list + " initials are empty"
 
-    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag =\
+    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag = \
         password_checking.password_complexity_check(password)
 
     if not password_length_flag and len(password) > 0:
@@ -60,7 +60,8 @@ def add_user_button():
 
     timestamp = password_checking.create_password_time_stamp()
 
-    user = [user_name, password, initials, timestamp]
+    password_history = " n/a," + "n/a," + f"{password}"
+    user = [user_name, password, initials, timestamp, password_history]
     log_in_database_functions.insert_into_user_table(db_cursor, connection, user)
 
 
@@ -85,7 +86,7 @@ def edit_a_user():
         gui_windows.pop_up_window("Error", "Password is blank")
         return
 
-    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag =\
+    password_length_flag, upper_case_flag, lower_case_flag, special_character_flag, number_flag = \
         password_checking.password_complexity_check(password)
 
     if not password_length_flag and len(password) > 0:
@@ -98,7 +99,18 @@ def edit_a_user():
         gui_windows.pop_up_window("Error", "Password needs to be more complex")
         return
 
-    log_in_database_functions.change_user_password(db_cursor, connection, user_name, password, timestamp)
+    currently_used_passwords = log_in_database_functions.get_password_history(db_cursor, user_name)
+    current_password_history = password_checking.build_password_list(currently_used_passwords)
+    is_password_repeated = password_checking.check_password_history(current_password_history, password)
+
+    if is_password_repeated:
+        gui_windows.pop_up_window("Error", "Password previously used")
+        return
+
+    updated_password_list = password_checking.build_password_history(currently_used_passwords, password)
+
+    log_in_database_functions.change_user_password(db_cursor, connection, user_name, password, timestamp,
+                                                   updated_password_list)
     gui_windows.pop_up_window("Success", "Password changed")
 
 
