@@ -29,8 +29,8 @@ def add_entry_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
 
-    product_id, storage_type, general_id, client_id, holding_location, description, quantity, aggregate_form,\
-        fsg_id_event_log = gui_windows.get_entry_details(initials)
+    product_id, storage_type, general_id, client_id, holding_location, description, quantity, aggregate_form, \
+    fsg_id_event_log = gui_windows.get_entry_details(initials)
     error_list = typechecking.is_entry_correct(product_id, storage_type, general_id, client_id, holding_location,
                                                description, quantity, aggregate_form)
 
@@ -56,6 +56,7 @@ def update_an_fsg_id_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
     acceptable_locations = storage_locations.set_acceptable_locations()
+    acceptable_storage_types = ['RETAIN', 'STABILITY']
     fsg_id = gui_windows.get_fsg_id()
     fsg_id = entrybuilder.ask_for_fsg_id_allow_duplicate(fsg_id)
 
@@ -69,25 +70,29 @@ def update_an_fsg_id_button(initials):
         gui_windows.pop_up_window("Error", "FSG_ID does not exist")
         return
 
-    previous_storage_location, previous_description, previous_quantity, previous_form = \
+    previous_storage_location, previous_storage_type, previous_description, previous_quantity, previous_form = \
         database.get_previous_entry_info(fsg_id, db_cursor)
 
-    storage_location, description, quantity, reason_for_change = \
-        gui_windows.get_update_entry(fsg_id, previous_storage_location,
+    storage_location, storage_type, description, quantity, reason_for_change = \
+        gui_windows.get_update_entry(fsg_id, previous_storage_location, previous_storage_type,
                                      previous_description, previous_quantity, previous_form, initials)
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
-
-    if storage_location == "" or description == "" or quantity == "" or reason_for_change == "":
+    storage_type = typechecking.force_caps(storage_type)
+    if storage_location == "" or storage_type == "" or description == "" or quantity == "" or reason_for_change == "":
         gui_windows.pop_up_window("Error", "You cannot make changes to an entry with a blank field")
         return
     if storage_location not in acceptable_locations:
-        gui_windows.pop_up_window("Error", "Storage Location does not exist")
+        gui_windows.pop_up_window("Error", "Storage location does not exist")
+        return
+    if storage_type not in acceptable_storage_types:
+        gui_windows.pop_up_window("Error", "Storage type is invalid")
         return
     if not test_quantity.isdigit():
         gui_windows.pop_up_window("Error", "Quantity is not a number")
         return
 
-    database.update_entry(db_cursor, connection, fsg_id, storage_location, description, quantity, reason_for_change)
+    database.update_entry(db_cursor, connection, fsg_id, storage_location, storage_type,
+                          description, quantity, reason_for_change)
 
 
 def get_logging_information_button():

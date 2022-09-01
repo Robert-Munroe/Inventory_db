@@ -79,13 +79,15 @@ def layout_get_product_id():
     return layout
 
 
-def layout_get_entry_update(fsg_id, storage_location, description, quantity):
+def layout_get_entry_update(fsg_id, storage_type, storage_location, description, quantity):
     storage_location_menu = storage_locations.set_acceptable_locations()
     layout = [
         [simpleGui.Text(f"You are making changes to {fsg_id}")],
-        [simpleGui.Text("Please enter the storage location")],
+        [simpleGui.Text("Please enter the storage location"), simpleGui.Push(),
+         simpleGui.Text("Did the sample's inventory type change?")],
         [simpleGui.Text("Storage Location:", size=(15, 1)),
-         simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}')],
+         simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}'), simpleGui.Push(),
+         simpleGui.Combo(['Retain', 'Stability'], default_value=f'{storage_type}')],
         [simpleGui.Text("Please enter the description")],
         [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}")],
         [simpleGui.Text("Please enter the product's quantity")],

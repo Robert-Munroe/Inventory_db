@@ -103,36 +103,40 @@ def get_fsg_id():
         return
 
 
-def get_update_entry(fsg_id, storage_location, description, quantity, form, initials):
-    layout = layouts.layout_get_entry_update(fsg_id, storage_location, description, quantity)
+def get_update_entry(fsg_id, storage_type, storage_location, description, quantity, form, initials):
+    layout = layouts.layout_get_entry_update(fsg_id, storage_location, storage_type, description, quantity)
     window = simpleGui.Window(f"Change {fsg_id}", layout)
     current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     while True:
         event, values = window.read()
         if event == "Cancel":
             storage_location = ""
+            storage_type = ""
             description = ""
             quantity = ""
             reason_for_change = ""
             window.close()
-            return storage_location, description, quantity, reason_for_change
+            return storage_location, storage_type, description, quantity, reason_for_change
         if event == "Submit":
             storage_location = values[0]
             storage_location = typechecking.force_caps(storage_location)
-            description = values[1]
-            quantity = values[2]
-            edit_reason = values[3]
+            storage_type = values[1]
+            storage_type = typechecking.force_caps(storage_type)
+            description = values[2]
+            quantity = values[3]
+            edit_reason = values[4]
             reason_for_change = \
-                current_time + " " + initials + " " + str(values[2]) + " " + form + " " + \
+                current_time + " " + initials + " " + str(values[3]) + " " + form + " " + \
                 edit_reason.replace(",", "") + ","
             window.Close()
-            return storage_location, description, quantity, reason_for_change
+            return storage_location, storage_type, description, quantity, reason_for_change
         window.close()
         storage_location = ""
+        storage_type = ""
         description = ""
         quantity = ""
         reason_for_change = ""
-        return storage_location, description, quantity, reason_for_change
+        return storage_location, storage_type, description, quantity, reason_for_change
 
 
 def view_a_sample_window(product_info):
