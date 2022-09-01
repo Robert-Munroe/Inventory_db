@@ -29,16 +29,16 @@ def add_entry_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
 
-    product_id, general_id, client_id, holding_location, description, quantity, aggregate_form, fsg_id_event_log \
-        = gui_windows.get_entry_details(initials)
-    error_list = typechecking.is_entry_correct(product_id, general_id, client_id, holding_location, description,
-                                               quantity, aggregate_form)
+    product_id, storage_type, general_id, client_id, holding_location, description, quantity, aggregate_form,\
+        fsg_id_event_log = gui_windows.get_entry_details(initials)
+    error_list = typechecking.is_entry_correct(product_id, storage_type, general_id, client_id, holding_location,
+                                               description, quantity, aggregate_form)
 
     if error_list:
         gui_windows.invalid_entry_window(error_list)
         return
 
-    entry = [product_id, general_id, client_id, holding_location, description, quantity,
+    entry = [product_id, storage_type, general_id, client_id, holding_location, description, quantity,
              aggregate_form, fsg_id_event_log]
     database.insert_into_inventory_table(db_cursor, connection, entry)
 

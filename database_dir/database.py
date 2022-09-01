@@ -33,6 +33,7 @@ def create_user_table(cursor: sqlite3.Cursor):
 def create_inventory_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS founders_inventory(
     fsg_id TEXT PRIMARY KEY,
+    storage_type TEXT DEFAULT NULL,
     product_id TEXT DEFAULT NULL,
     client_id TEXT DEFAULT NULL,
     storage_location TEXT DEFAULT NULL,
@@ -49,9 +50,9 @@ def create_table(cursor: sqlite3.Cursor):
 
 
 def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
-    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, product_id, client_id, storage_location,
+    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, storage_type, product_id, client_id, storage_location,
      container_description, quantity, aggregate_form, fsg_id_event_log)
-     VALUES(?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
+     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
     connection.commit()
 
 
@@ -130,6 +131,7 @@ def get_product_info(cursor: sqlite3.Cursor, fsg_id):
         product_info.append(row[4])
         product_info.append(row[5])
         product_info.append(row[6])
+        product_info.append(row[7])
     return product_info
 
 

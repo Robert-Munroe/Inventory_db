@@ -74,9 +74,21 @@ def is_unit_correct(unit):
         return True, ""
 
 
-def is_entry_correct(fsg_id: str, general_id, client_id, storage_location, description, quantity, unit):
+def is_storage_type_correct(storage_type):
+    acceptable_types = ['RETAIN', 'STABILITY']
+    if storage_type not in acceptable_types:
+        return False, "Storage type is invalid"
+    else:
+        return True, ""
+
+
+def is_entry_correct(fsg_id: str, storage_type, general_id, client_id, storage_location, description, quantity, unit):
     error_list = ""
     state, statement = is_fsg_id_correct(fsg_id)
+    if not state:
+        error_list = error_list + statement
+
+    state, statement = is_storage_type_correct(storage_type)
     if not state:
         error_list = error_list + statement
 

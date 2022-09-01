@@ -28,6 +28,7 @@ def get_entry_details(initials):
         if event == "Cancel":
             window.close()
             fsg_id = "error"
+            storage_type = ""
             product_id = ""
             client_id = ""
             storage_location = ""
@@ -35,27 +36,30 @@ def get_entry_details(initials):
             quantity = ""
             aggregate_form = ""
             fsg_id_event_log = ""
-            return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
-                fsg_id_event_log
+            return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity, \
+                aggregate_form, fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]
             fsg_id = fsg_id.replace("s", "S")
-            product_id = values[1]
+            storage_type = values[1]
+            storage_type = typechecking.force_caps(storage_type)
+            product_id = values[2]
             product_id = typechecking.force_caps(product_id)
-            client_id = values[2]
+            client_id = values[3]
             client_id = typechecking.force_caps(client_id)
-            storage_location = values[3]
+            storage_location = values[4]
             storage_location = typechecking.force_caps(storage_location)
-            container_description = values[4]
-            quantity = values[5]
-            aggregate_form = values[6]
+            container_description = values[5]
+            quantity = values[6]
+            aggregate_form = values[7]
             fsg_id_event_log = \
-                current_time + " " + initials + " " + str(values[5]) + " " + values[6] + " " + " FSG ID created,"
+                current_time + " " + initials + " " + str(values[6]) + " " + values[7] + " " + " FSG ID created,"
             window.close()
-            return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
-                fsg_id_event_log
+            return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity,\
+                aggregate_form, fsg_id_event_log
         fsg_id = "error"
+        storage_type = ""
         product_id = ""
         client_id = ""
         storage_location = ""
@@ -64,8 +68,8 @@ def get_entry_details(initials):
         aggregate_form = ""
         fsg_id_event_log = ""
         window.close()
-        return fsg_id, product_id, client_id, storage_location, container_description, quantity, aggregate_form,\
-            fsg_id_event_log
+        return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity, \
+            aggregate_form, fsg_id_event_log
 
 
 def invalid_entry_window(error_list):

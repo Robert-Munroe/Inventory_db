@@ -23,9 +23,14 @@ def admin_main_window():
     window.close()
 
 
-def add_user_button():
+def db_connection_and_cursor():
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
+    return connection, db_cursor
+
+
+def add_user_button():
+    connection, db_cursor = db_connection_and_cursor()
     user_name, password, initials = admin_windows.add_user_window()
 
     error_list = ""
@@ -66,9 +71,7 @@ def add_user_button():
 
 
 def edit_a_user():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
-
+    connection, db_cursor = db_connection_and_cursor()
     user_name = admin_windows.get_user()
     does_user_exist = log_in_database_functions.user_exist(db_cursor, user_name)
 
@@ -115,8 +118,7 @@ def edit_a_user():
 
 
 def print_user_log():
-    location_of_db = database.db_location()
-    connection, db_cursor = database.open_db(location_of_db)
+    connection, db_cursor = db_connection_and_cursor()
     list_of_users = log_in_database_functions.get_all_users(db_cursor)
     if not list_of_users:
         gui_windows.pop_up_window('error', 'no users')

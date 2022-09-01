@@ -22,8 +22,10 @@ def layout_entry_details():
     connection, db_cursor = database_dir.database.open_db(location_of_db)
     last_fsg_id = database_dir.database.get_last_fsg_id_from_table(db_cursor)
     layout = [
-        [simpleGui.Text("Please enter an FSG ID")],
-        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText(f'{last_fsg_id}')],
+        [simpleGui.Text("Please enter an FSG ID"), simpleGui.Push(),
+         simpleGui.Text("Is this sample a retain or stability")],
+        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText(f'{last_fsg_id}'),
+         simpleGui.Combo(['Retain', 'Stability'], default_value='Storage Type')],
         [simpleGui.Text("What is the product")],
         [simpleGui.Text("Product: ", size=(15, 1)), simpleGui.InputText()],
         [simpleGui.Text("Who is the client")],
@@ -60,9 +62,9 @@ def layout_pop_up_window(attribute):
 def layout_view_sample_info(fsg_id):
     layout = [
         [simpleGui.Text(f"FSG ID is: {fsg_id[0]}")],
-        [simpleGui.Text(f"Product is: {fsg_id[1]}")],
-        [simpleGui.Text(f"Storage Location is: {fsg_id[3]}")],
-        [simpleGui.Text(f"Description of container is: {fsg_id[4]}")],
+        [simpleGui.Text(f"Product is: {fsg_id[2]}")],
+        [simpleGui.Text(f"Storage Location is: {fsg_id[4]}")],
+        [simpleGui.Text(f"Description of container is: {fsg_id[5]}")],
         [simpleGui.Text(f"{fsg_id[5]} {fsg_id[6]}")]
     ]
     return layout
