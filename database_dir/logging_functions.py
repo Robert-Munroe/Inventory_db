@@ -8,34 +8,39 @@ def get_locations_of_product_id(product_id, cursor):
 
 def get_locations_of_product_id_historic(product_id, cursor):
     product_id = "'" + product_id + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location'
+                            f' FROM founders_inventory WHERE (product_id == {product_id});').fetchall()
     return result
 
 
 def get_fsg_id_from_storage_location(storage_location, cursor):
     storage_location = "'" + storage_location + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (storage_location == {storage_location}) '
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location'
+                            f' FROM founders_inventory WHERE (storage_location == {storage_location}) '
                             f'AND quantity > 0;').fetchall()
     return result
 
 
 def get_fsg_id_from_storage_location_historic(storage_location, cursor):
     storage_location = "'" + storage_location + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (storage_location == {storage_location});')\
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location'
+                            f' FROM founders_inventory WHERE (storage_location == {storage_location});')\
         .fetchall()
     return result
 
 
 def get_fsg_id_by_client(client_id, cursor):
     client_id = "'" + client_id + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (client_id == {client_id}) AND quantity > 0;')\
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location '
+                            f'FROM founders_inventory WHERE (client_id == {client_id}) AND quantity > 0;')\
         .fetchall()
     return result
 
 
 def get_fsg_id_by_client_historic(client_id, cursor):
     client_id = "'" + client_id + "'"
-    result = cursor.execute(f'SELECT * FROM founders_inventory WHERE (client_id == {client_id});').fetchall()
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location'
+                            f' FROM founders_inventory WHERE (client_id == {client_id});').fetchall()
     return result
 
 
