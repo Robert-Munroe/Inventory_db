@@ -104,6 +104,7 @@ def get_fsg_id_by_client_historic(client, db_cursor):
 
 def get_all_entries_historic(cursor):
     list_header = set_file_header()
+    list_header.append('Storage_type')
     record = logging_functions.get_all_entries_historic(cursor)
     if not record:
         gui_windows.pop_up_window('Error', 'Database population: you')
@@ -120,6 +121,7 @@ def get_all_entries_historic(cursor):
 
 def get_all_entries(cursor):
     list_header = set_file_header()
+    list_header.append('Storage_type')
     record = logging_functions.get_all_entries(cursor)
     if not record:
         gui_windows.pop_up_window('Error', 'Database population: you')

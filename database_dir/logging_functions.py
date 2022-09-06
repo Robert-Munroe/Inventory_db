@@ -51,12 +51,12 @@ def get_audit_log_by_fsg_id(fsg_id, cursor):
 
 
 def get_all_entries(cursor):
-    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location '
-                            f'FROM founders_inventory WHERE quantity > 0;').fetchall()
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location, '
+                            f'storage_type FROM founders_inventory WHERE quantity > 0;').fetchall()
     return result
 
 
 def get_all_entries_historic(cursor):
-    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location '
-                            f'FROM founders_inventory;').fetchall()
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location, '
+                            f'storage_type FROM founders_inventory;').fetchall()
     return result

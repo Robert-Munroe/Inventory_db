@@ -24,20 +24,20 @@ def layout_entry_details():
     layout = [
         [simpleGui.Text("Please enter an FSG ID"), simpleGui.Push(),
          simpleGui.Text("Is this sample a retain or stability")],
-        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText(f'{last_fsg_id}'),
-         simpleGui.Combo(['Retain', 'Stability'], default_value='Storage Type')],
+        [simpleGui.Text("FSG ID: ", size=(15, 1)), simpleGui.InputText(f'{last_fsg_id}', size=(15, 1)),
+         simpleGui.Combo(['Retain', 'Stability'], default_value='Storage Type', size=(15, 1))],
         [simpleGui.Text("What is the product")],
-        [simpleGui.Text("Product: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Product: ", size=(15, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Text("Who is the client")],
-        [simpleGui.Text("Client: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Client: ", size=(15, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Text("Please enter a storage location")],
         [simpleGui.Text("Storage Location:", size=(15, 1)),
-         simpleGui.Combo(storage_location_menu, default_value='Location')],
+         simpleGui.Combo(storage_location_menu, default_value='Location', size=(15, 1))],
         [simpleGui.Text("Please enter a describe the container")],
-        [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Text("Please enter the product's quantity and unit")],
-        [simpleGui.Text("Quantity: X Unit: Y: ", size=(15, 1)), simpleGui.InputText(),
-         simpleGui.Combo(['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)'], default_value='Unit', readonly=True)],
+        [simpleGui.Text("Quantity: X Unit: Y: ", size=(15, 1)), simpleGui.InputText(size=(15, 1)),
+         simpleGui.Combo(['g', 'ml', 'container(s)', 'bag(s)', 'vial(s)'], default_value='Unit', size=(15, 1))],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
