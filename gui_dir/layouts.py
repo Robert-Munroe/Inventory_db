@@ -117,9 +117,10 @@ def layout_logging_main_window():
 
 
 def layout_get_storage_location():
+    storage_location_menu = storage_locations.set_acceptable_locations()
     layout = [
-        [simpleGui.Text("Please enter a storage location")],
-        [simpleGui.Text("Storage Location: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Storage Location:", size=(15, 1)),
+         simpleGui.Combo(storage_location_menu, default_value="Location")],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout
