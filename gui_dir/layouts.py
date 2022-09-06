@@ -102,12 +102,14 @@ def layout_get_entry_update(fsg_id, storage_type, storage_location, description,
 def layout_logging_main_window():
     layout = [
         [simpleGui.Text("Welcome to logging")],
-        [simpleGui.Button("FSG_ID by Product Name", size=(27, 1)),
+        [simpleGui.Button("FSG_ID by Product Name", size=(27, 1)), simpleGui.Push(),
          simpleGui.Button("Historic FSG_ID by Product Name", size=(27, 1))],
-        [simpleGui.Button("FSG_ID in Storage Location", size=(27, 1)),
+        [simpleGui.Button("FSG_ID in Storage Location", size=(27, 1)), simpleGui.Push(),
          simpleGui.Button("Historic FSG_ID in Storage Location", size=(27, 1))],
-        [simpleGui.Button("FSG_ID by client", size=(27, 1)),
+        [simpleGui.Button("FSG_ID by client", size=(27, 1)), simpleGui.Push(),
          simpleGui.Button("Historic FSG_ID by client", size=(27, 1))],
+        [simpleGui.Button("Get all entries", size=(27, 1)), simpleGui.Push(),
+         simpleGui.Button("Get all entries historic", size=(27, 1))],
         [simpleGui.Push(), simpleGui.Button("History of FSG_ID"), simpleGui.Push()],
         [simpleGui.Push(), simpleGui.Button("Exit")]
     ]

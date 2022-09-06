@@ -24,11 +24,29 @@ def logging_main_window():
             fsg_id_by_client_button()
         if event == "Historic FSG_ID by client":
             fsg_id_by_client_historic_button()
+        if event == "Get all entries":
+            get_all_entries_button()
+        if event == "Get all entries historic":
+            get_all_entries_historic_button()
         if event == "History of FSG_ID":
             fsg_id_dump()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break
     window.close()
+
+
+def get_all_entries_button():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    logging_gui_buttons.get_all_entries(db_cursor)
+    return
+
+
+def get_all_entries_historic_button():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    logging_gui_buttons.get_all_entries_historic(db_cursor)
+    return
 
 
 def fsg_id_by_product_name_button():
