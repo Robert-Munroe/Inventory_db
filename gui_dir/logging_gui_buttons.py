@@ -160,7 +160,7 @@ def fsg_id_dump_button(fsg_id, db_cursor):
 
 def file_formatter(temp_text_file, desired_name):
     with open(f'{temp_text_file}.txt', 'r') as infile, \
-            open(f'{desired_name}.txt', 'w') as outfile:
+            open(f'{desired_name}.csv', 'w') as outfile:
         data = infile.read()
         data = data.replace("[", "").replace("]", "").replace(")", "").replace("(", "").replace("'", "")
         outfile.write(data)
