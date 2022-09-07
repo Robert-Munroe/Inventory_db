@@ -1,7 +1,7 @@
 import PySimpleGUI as simpleGui
 
 from database_dir import database, log_in_database_functions
-from gui_dir import user_layouts, admin_windows, gui_windows
+from gui_dir import user_layouts, admin_windows, gui_windows, logging_gui_buttons
 from helper_functions import password_checking
 
 
@@ -120,10 +120,19 @@ def edit_a_user():
 def print_user_log():
     connection, db_cursor = db_connection_and_cursor()
     list_of_users = log_in_database_functions.get_all_users(db_cursor)
+    file_header = set_file_header()
     if not list_of_users:
         gui_windows.pop_up_window('error', 'no users')
     list_entries_lists = [list(i) for i in list_of_users]
+    list_entries_lists = [file_header] + list_entries_lists
 
-    with open('list_of_users.txt', 'w') as f:
+    with open('list_of_users_temp.txt', 'w') as f:
         for item in list_entries_lists:
             f.write("%s\n" % item)
+
+    logging_gui_buttons.file_formatter('list_of_users_temp', 'List_of_users')
+
+
+def set_file_header():
+    file_header = ['Username', 'Password', 'Initials', 'Time of password', 'List of previous 3 passwords']
+    return file_header
