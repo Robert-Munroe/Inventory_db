@@ -170,5 +170,6 @@ def file_formatter(temp_text_file, desired_name):
 
 
 def set_file_header():
-    file_header = ['FSG_ID', 'Product_ID', 'Client_ID', 'Quantity', 'Unit', 'Location']
+    file_header = ['FSG_ID', 'Product_ID', 'Client_ID', 'Quantity', 'Unit', 'Location', 'Additional Location 1',
+                   'Additional Location 2']
     return file_header
