@@ -32,12 +32,14 @@ def get_entry_details(initials):
             product_id = ""
             client_id = ""
             storage_location = ""
+            addition_storage_location_one = ""
+            addition_storage_location_two = ""
             container_description = ""
             quantity = ""
             aggregate_form = ""
             fsg_id_event_log = ""
-            return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity, \
-                aggregate_form, fsg_id_event_log
+            return fsg_id, storage_type, product_id, client_id, storage_location, addition_storage_location_one, \
+            addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]
@@ -50,26 +52,29 @@ def get_entry_details(initials):
             client_id = typechecking.force_caps(client_id)
             storage_location = values[4]
             storage_location = typechecking.force_caps(storage_location)
-            container_description = values[5]
-            quantity = values[6]
-            aggregate_form = values[7]
+            additional_storage_location_one = values[5]
+            additional_storage_location_two = values[6]
+            container_description = values[7]
+            quantity = values[8]
+            aggregate_form = values[9]
             fsg_id_event_log = \
-                current_time + " " + initials + " " + str(values[6]) + " " + values[7] + " " + " FSG ID created,"
+                current_time + " " + initials + " " + str(values[8]) + " " + values[9] + " " + " FSG ID created,"
             window.close()
-            return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity,\
-                aggregate_form, fsg_id_event_log
+            return fsg_id, storage_type, product_id, client_id, storage_location, additional_storage_location_one, \
+                additional_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
         fsg_id = "error"
         storage_type = ""
         product_id = ""
         client_id = ""
         storage_location = ""
+        addition_storage_location_one = ""
+        addition_storage_location_two = ""
         container_description = ""
         quantity = ""
         aggregate_form = ""
         fsg_id_event_log = ""
-        window.close()
-        return fsg_id, storage_type, product_id, client_id, storage_location, container_description, quantity, \
-            aggregate_form, fsg_id_event_log
+        return fsg_id, storage_type, product_id, client_id, storage_location, addition_storage_location_one, \
+            addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
 
 
 def invalid_entry_window(error_list):
@@ -103,40 +108,51 @@ def get_fsg_id():
         return
 
 
-def get_update_entry(fsg_id, storage_type, storage_location, description, quantity, form, initials):
-    layout = layouts.layout_get_entry_update(fsg_id, storage_location, storage_type, description, quantity)
+def get_update_entry(fsg_id, storage_location, addition_location_one, addition_location_two, storage_type,
+                     description, quantity, form, initials):
+    layout = layouts.layout_get_entry_update(fsg_id, storage_location, addition_location_one, addition_location_two,
+                                             storage_type, description, quantity)
     window = simpleGui.Window(f"Change {fsg_id}", layout)
     current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     while True:
         event, values = window.read()
         if event == "Cancel":
             storage_location = ""
+            addition_location_one = ""
+            addition_location_two = ""
             storage_type = ""
             description = ""
             quantity = ""
             reason_for_change = ""
             window.close()
-            return storage_location, storage_type, description, quantity, reason_for_change
+            return storage_location, addition_location_one, addition_location_two, storage_type, description, quantity,\
+                reason_for_change
         if event == "Submit":
             storage_location = values[0]
             storage_location = typechecking.force_caps(storage_location)
-            storage_type = values[1]
+            addition_location_one = values[1]
+            addition_location_two = values[2]
+            storage_type = values[3]
             storage_type = typechecking.force_caps(storage_type)
-            description = values[2]
-            quantity = values[3]
-            edit_reason = values[4]
+            description = values[4]
+            quantity = values[5]
+            edit_reason = values[6]
             reason_for_change = \
-                current_time + " " + initials + " " + str(values[3]) + " " + form + " " + \
+                current_time + " " + initials + " " + str(values[5]) + " " + form + " " + \
                 edit_reason.replace(",", "") + ","
             window.Close()
-            return storage_location, storage_type, description, quantity, reason_for_change
+            return storage_location,addition_location_one,addition_location_two, storage_type, description, quantity,\
+                reason_for_change
         window.close()
         storage_location = ""
+        addition_location_one = ""
+        addition_location_two = ""
         storage_type = ""
         description = ""
         quantity = ""
         reason_for_change = ""
-        return storage_location, storage_type, description, quantity, reason_for_change
+        return storage_location,addition_location_one, addition_location_two, storage_type, description, quantity,\
+            reason_for_change
 
 
 def view_a_sample_window(product_info):

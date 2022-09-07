@@ -18,6 +18,7 @@ def layout_main_window():
 
 def layout_entry_details():
     storage_location_menu = storage_locations.set_acceptable_locations()
+    storage_location_menu_with_na = storage_locations.set_acceptable_locations_with_na()
     location_of_db = database_dir.database.db_location()
     connection, db_cursor = database_dir.database.open_db(location_of_db)
     last_fsg_id = database_dir.database.get_last_fsg_id_from_table(db_cursor)
@@ -33,6 +34,9 @@ def layout_entry_details():
         [simpleGui.Text("Please enter a storage location")],
         [simpleGui.Text("Storage Location:", size=(15, 1)),
          simpleGui.Combo(storage_location_menu, default_value='Location', size=(15, 1))],
+        [simpleGui.Text("Addition Storage Locations", size=(15, 1)),
+         simpleGui.Combo(storage_location_menu_with_na, default_value='N/A', size=(15, 1)),
+         simpleGui.Combo(storage_location_menu_with_na, default_value='N/A', size=(15, 1))],
         [simpleGui.Text("Please enter a describe the container")],
         [simpleGui.Text("Description:", size=(15, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Text("Please enter the product's quantity and unit")],
@@ -62,10 +66,11 @@ def layout_pop_up_window(attribute):
 def layout_view_sample_info(fsg_id):
     layout = [
         [simpleGui.Text(f"FSG ID is: {fsg_id[0]}")],
-        [simpleGui.Text(f"Product is: {fsg_id[2]}")],
-        [simpleGui.Text(f"Storage Location is: {fsg_id[4]}")],
+        [simpleGui.Text(f"Product is: {fsg_id[1]}")],
+        [simpleGui.Text(f"Storage Location is: {fsg_id[2]}")],
+        [simpleGui.Text(f"Alternative storage locations are: {fsg_id[3]}, {fsg_id[4]}")],
         [simpleGui.Text(f"Description of container is: {fsg_id[5]}")],
-        [simpleGui.Text(f"{fsg_id[5]} {fsg_id[6]}")]
+        [simpleGui.Text(f"{fsg_id[6]} {fsg_id[7]}")]
     ]
     return layout
 
@@ -79,21 +84,27 @@ def layout_get_product_id():
     return layout
 
 
-def layout_get_entry_update(fsg_id, storage_type, storage_location, description, quantity):
+def layout_get_entry_update(fsg_id, storage_location, addition_location_one, addition_location_two, storage_type,
+                            description, quantity):
     storage_location_menu = storage_locations.set_acceptable_locations()
+    storage_location_menu_with_na = storage_locations.set_acceptable_locations_with_na()
     layout = [
         [simpleGui.Text(f"You are making changes to {fsg_id}")],
-        [simpleGui.Text("Please enter the storage location"), simpleGui.Push(),
-         simpleGui.Text("Did the sample's inventory type change?")],
+        [simpleGui.Text("Please enter the storage location",), simpleGui.Push(),
+         simpleGui.Text("Storage Type", size=(15, 1))],
         [simpleGui.Text("Storage Location:", size=(15, 1)),
-         simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}'), simpleGui.Push(),
-         simpleGui.Combo(['Retain', 'Stability'], default_value=f'{storage_type}')],
+         simpleGui.Combo(storage_location_menu, default_value=f'{storage_location}', size=(15, 1)), simpleGui.Push(),
+         simpleGui.Combo(['Retain', 'Stability'], default_value=f'{storage_type}', size=(15, 1))],
+        [simpleGui.Text("Addition Storage", size=(15, 1)),
+         simpleGui.Combo(storage_location_menu_with_na, default_value=f'{addition_location_one}', size=(15, 1)),
+         simpleGui.Push(),
+         simpleGui.Combo(storage_location_menu_with_na, default_value=f'{addition_location_two}', size=(15, 1))],
         [simpleGui.Text("Please enter the description")],
-        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}")],
+        [simpleGui.Text("Description: ", size=(15, 1)), simpleGui.InputText(f"{description}", size=(15, 1))],
         [simpleGui.Text("Please enter the product's quantity")],
-        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText(f"{quantity}")],
+        [simpleGui.Text("Quantity: ", size=(15, 1)), simpleGui.InputText(f"{quantity}", size=(15, 1))],
         [simpleGui.Text("Please enter a reason for your edit")],
-        [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Text("Edit Reason: ", size=(15, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout

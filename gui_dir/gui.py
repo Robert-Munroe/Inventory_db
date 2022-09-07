@@ -29,17 +29,18 @@ def add_entry_button(initials):
     location_of_db = database.db_location()
     connection, db_cursor = database.open_db(location_of_db)
 
-    product_id, storage_type, general_id, client_id, holding_location, description, quantity, aggregate_form, \
-    fsg_id_event_log = gui_windows.get_entry_details(initials)
+    product_id, storage_type, general_id, client_id, holding_location, addition_location_one, addition_location_two, \
+        description, quantity, aggregate_form, fsg_id_event_log = gui_windows.get_entry_details(initials)
     error_list = typechecking.is_entry_correct(product_id, storage_type, general_id, client_id, holding_location,
-                                               description, quantity, aggregate_form)
+                                               addition_location_one, addition_location_two, description, quantity,
+                                               aggregate_form)
 
     if error_list:
         gui_windows.invalid_entry_window(error_list)
         return
 
-    entry = [product_id, storage_type, general_id, client_id, holding_location, description, quantity,
-             aggregate_form, fsg_id_event_log]
+    entry = [product_id, storage_type, general_id, client_id, holding_location, addition_location_one,
+             addition_location_two, description, quantity, aggregate_form, fsg_id_event_log]
     database.insert_into_inventory_table(db_cursor, connection, entry)
 
 
@@ -70,12 +71,15 @@ def update_an_fsg_id_button(initials):
         gui_windows.pop_up_window("Error", "FSG_ID does not exist")
         return
 
-    previous_storage_location, previous_storage_type, previous_description, previous_quantity, previous_form = \
+    previous_storage_location, previous_storage_location_one, previous_storage_location_two, \
+        previous_storage_type, previous_description, previous_quantity, previous_form = \
         database.get_previous_entry_info(fsg_id, db_cursor)
 
-    storage_location, storage_type, description, quantity, reason_for_change = \
-        gui_windows.get_update_entry(fsg_id, previous_storage_location, previous_storage_type,
-                                     previous_description, previous_quantity, previous_form, initials)
+    storage_location, addition_location_one, addition_location_two, storage_type, description, quantity,\
+        reason_for_change = \
+        gui_windows.get_update_entry(fsg_id, previous_storage_location, previous_storage_location_one,
+                                     previous_storage_location_two, previous_storage_type, previous_description,
+                                     previous_quantity, previous_form, initials)
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
     storage_type = typechecking.force_caps(storage_type)
     if storage_location == "" or storage_type == "" or description == "" or quantity == "" or reason_for_change == "":

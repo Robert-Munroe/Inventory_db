@@ -37,6 +37,8 @@ def create_inventory_table(cursor: sqlite3.Cursor):
     product_id TEXT DEFAULT NULL,
     client_id TEXT DEFAULT NULL,
     storage_location TEXT DEFAULT NULL,
+    addition_location_one TEXT DEFAULT NULL,
+    addition_location_two TEXT DEFAULT NULL,
     container_description TEXT DEFAULT NULL,
     quantity INT DEFAULT NULL,
     aggregate_form TEXT DEFAULT NULL,
@@ -51,8 +53,8 @@ def create_table(cursor: sqlite3.Cursor):
 
 def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
     cursor.executemany('''INSERT INTO founders_inventory(fsg_id, storage_type, product_id, client_id, storage_location,
-     container_description, quantity, aggregate_form, fsg_id_event_log)
-     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
+     addition_location_one, addition_location_two, container_description, quantity, aggregate_form, fsg_id_event_log)
+     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
     connection.commit()
 
 
@@ -91,17 +93,20 @@ def does_fsg_id_exist(cursor: sqlite3.Cursor, fsg_id):
     return False
 
 
-def update_entry(
-        cursor: sqlite3.Cursor, connection, fsg_id, storage_location, storage_type, description, quantity,
-        reason_for_change):
+def update_entry(cursor: sqlite3.Cursor, connection, fsg_id, storage_location, addition_location_one,
+                 addition_location_two, storage_type, description, quantity, reason_for_change):
     fsg_id = "'" + fsg_id + "'"
     storage_location = "'" + storage_location + "'"
     storage_type = "'" + storage_type + "'"
     description = "'" + description + "'"
     quantity = "'" + quantity + "'"
+    addition_location_one = "'" + addition_location_one + "'"
+    addition_location_two = "'" + addition_location_two + "'"
     reason_for_change = append_event_log(cursor, fsg_id, reason_for_change)
 
     cursor.execute(f'UPDATE founders_inventory SET storage_location = {storage_location} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET storage_location = {addition_location_one} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET storage_location = {addition_location_two} WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET storage_type = {storage_type} WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET container_description = {description} WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET quantity = {quantity} WHERE fsg_id = {fsg_id}')
@@ -128,27 +133,32 @@ def get_product_info(cursor: sqlite3.Cursor, fsg_id):
 
     for row in result:
         product_info.append(row[0])
-        product_info.append(row[1])
         product_info.append(row[2])
-        product_info.append(row[3])
         product_info.append(row[4])
         product_info.append(row[5])
         product_info.append(row[6])
         product_info.append(row[7])
+        product_info.append(row[8])
+        product_info.append(row[9])
+        product_info.append(row[10])
     return product_info
 
 
 def get_previous_entry_info(fsg_id, cursor):
     fsg_id = "'" + fsg_id + "'"
-    result = cursor.execute(f'SELECT storage_location, storage_type, container_description, quantity, aggregate_form  '
+    result = cursor.execute(f'SELECT storage_location, addition_location_one, addition_location_two,'
+                            f' storage_type, container_description, quantity, aggregate_form  '
                             f'FROM founders_inventory WHERE (fsg_id == {fsg_id});')
     for row in result:
         previous_storage_location = row[0]
-        previous_storage_type = row[1]
-        previous_description = row[2]
-        previous_quantity = row[3]
-        previous_form = row[4]
-        return previous_storage_location, previous_storage_type, previous_description, previous_quantity, previous_form
+        previous_storage_location_one = row[1]
+        previous_storage_location_two = row[2]
+        previous_storage_type = row[3]
+        previous_description = row[4]
+        previous_quantity = row[5]
+        previous_form = row[6]
+        return previous_storage_location, previous_storage_location_one, previous_storage_location_two, \
+            previous_storage_type, previous_description, previous_quantity, previous_form
 
 
 def get_last_fsg_id_from_table(cursor):
