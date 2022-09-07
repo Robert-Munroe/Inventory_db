@@ -1,11 +1,9 @@
 import sqlite3
+import secrets
 
-
-# r"\\FSGFS\Shared Folders\Access\foundersinventorydb\foundersinventorydb.sqlite"
-# r"I:\database\foundersinventorydb.sqlite"
 
 def db_location():
-    location = r"I:\database\foundersinventorydb.sqlite"
+    location = secrets.set_personal_location()
     return location
 
 
