@@ -130,10 +130,10 @@ def get_update_entry(fsg_id, storage_location, addition_location_one, addition_l
         if event == "Submit":
             storage_location = values[0]
             storage_location = typechecking.force_caps(storage_location)
-            addition_location_one = values[1]
-            addition_location_two = values[2]
-            storage_type = values[3]
+            storage_type = values[1]
             storage_type = typechecking.force_caps(storage_type)
+            addition_location_one = values[2]
+            addition_location_two = values[3]
             description = values[4]
             quantity = values[5]
             edit_reason = values[6]
@@ -141,7 +141,7 @@ def get_update_entry(fsg_id, storage_location, addition_location_one, addition_l
                 current_time + " " + initials + " " + str(values[5]) + " " + form + " " + \
                 edit_reason.replace(",", "") + ","
             window.Close()
-            return storage_location,addition_location_one,addition_location_two, storage_type, description, quantity,\
+            return storage_location, addition_location_one, addition_location_two, storage_type, description, quantity,\
                 reason_for_change
         window.close()
         storage_location = ""
@@ -151,7 +151,7 @@ def get_update_entry(fsg_id, storage_location, addition_location_one, addition_l
         description = ""
         quantity = ""
         reason_for_change = ""
-        return storage_location,addition_location_one, addition_location_two, storage_type, description, quantity,\
+        return storage_location, addition_location_one, addition_location_two, storage_type, description, quantity,\
             reason_for_change
 
 

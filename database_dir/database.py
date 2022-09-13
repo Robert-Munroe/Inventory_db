@@ -138,7 +138,6 @@ def get_product_info(cursor: sqlite3.Cursor, fsg_id):
         product_info.append(row[7])
         product_info.append(row[8])
         product_info.append(row[9])
-        product_info.append(row[10])
     return product_info
 
 

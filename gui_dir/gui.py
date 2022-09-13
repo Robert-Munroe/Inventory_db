@@ -81,7 +81,6 @@ def update_an_fsg_id_button(initials):
                                      previous_storage_location_two, previous_storage_type, previous_description,
                                      previous_quantity, previous_form, initials)
     test_quantity = quantity.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1)
-    storage_type = typechecking.force_caps(storage_type)
     if storage_location == "" or storage_type == "" or description == "" or quantity == "" or reason_for_change == "":
         gui_windows.pop_up_window("Error", "You cannot make changes to an entry with a blank field")
         return
@@ -95,8 +94,8 @@ def update_an_fsg_id_button(initials):
         gui_windows.pop_up_window("Error", "Quantity is not a number")
         return
 
-    database.update_entry(db_cursor, connection, fsg_id, storage_location, storage_type,
-                          description, quantity, reason_for_change)
+    database.update_entry(db_cursor, connection, fsg_id, storage_location, addition_location_one, addition_location_two,
+                          storage_type, description, quantity, reason_for_change)
 
 
 def get_logging_information_button():
