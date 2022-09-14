@@ -39,7 +39,7 @@ def get_entry_details(initials):
             aggregate_form = ""
             fsg_id_event_log = ""
             return fsg_id, storage_type, product_id, client_id, storage_location, addition_storage_location_one, \
-            addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
+                addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]

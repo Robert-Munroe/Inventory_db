@@ -103,8 +103,10 @@ def update_entry(cursor: sqlite3.Cursor, connection, fsg_id, storage_location, a
     reason_for_change = append_event_log(cursor, fsg_id, reason_for_change)
 
     cursor.execute(f'UPDATE founders_inventory SET storage_location = {storage_location} WHERE fsg_id = {fsg_id}')
-    cursor.execute(f'UPDATE founders_inventory SET storage_location = {addition_location_one} WHERE fsg_id = {fsg_id}')
-    cursor.execute(f'UPDATE founders_inventory SET storage_location = {addition_location_two} WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET addition_location_one = {addition_location_one} '
+                   f'WHERE fsg_id = {fsg_id}')
+    cursor.execute(f'UPDATE founders_inventory SET addition_location_two = {addition_location_two} '
+                   f'WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET storage_type = {storage_type} WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET container_description = {description} WHERE fsg_id = {fsg_id}')
     cursor.execute(f'UPDATE founders_inventory SET quantity = {quantity} WHERE fsg_id = {fsg_id}')
