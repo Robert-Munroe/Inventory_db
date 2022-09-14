@@ -137,6 +137,8 @@ def get_update_entry(fsg_id, storage_location, addition_location_one, addition_l
             description = values[4]
             quantity = values[5]
             edit_reason = values[6]
+            edit_reason = edit_reason.replace("'", "").replace('"', "").replace("(", "").replace(")", "").\
+                replace(".", "")
             reason_for_change = \
                 current_time + " " + initials + " " + str(values[5]) + " " + form + " " + \
                 edit_reason.replace(",", "") + ","

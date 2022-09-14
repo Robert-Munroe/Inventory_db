@@ -1,9 +1,9 @@
 import sqlite3
-import secrets
+import locations
 
 
 def db_location():
-    location = secrets.set_personal_location()
+    location = locations.set_personal_location()
     return location
 
 

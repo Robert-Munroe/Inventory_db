@@ -153,8 +153,9 @@ def fsg_id_dump_button(fsg_id, db_cursor):
     with open(f'audit_log_of_{fsg_id}.txt', 'r') as f:
         for line in f.readlines():
             line = line.replace(',', ',\n').replace('[', "").replace(']', "").replace("'", "")
-        with open(f'audit_log_of_{fsg_id}.txt', 'w') as new_file:
+        with open(f'audit_log_of_{fsg_id}.csv', 'w') as new_file:
             new_file.write(line)
+    os.remove(f'audit_log_of_{fsg_id}.txt')
     f.close()
 
 
