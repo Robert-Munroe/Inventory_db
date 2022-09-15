@@ -50,13 +50,7 @@ def insert_into_user_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
 
 
 def get_all_users(cursor):
-    result = cursor.execute('SELECT * FROM user_table;').fetchall()
-    list_of_locations = []
-    counter = 0
-    for row in result:
-        list_of_locations.append(row[counter])
-        counter = counter + 1
-
+    result = cursor.execute('SELECT username, initials, timestamp FROM user_table;').fetchall()
     return result
 
 

@@ -134,5 +134,5 @@ def print_user_log():
 
 
 def set_file_header():
-    file_header = ['Username', 'Password', 'Initials', 'Time of password', 'List of previous 3 passwords']
+    file_header = ['Username', 'Initials', 'Time of password']
     return file_header
