@@ -102,6 +102,44 @@ def get_fsg_id_by_client_historic(client, db_cursor):
     file_formatter(f'fsg_by_{client}_temp', f'fsg_by_{client}_historic')
 
 
+def get_fsg_id_by_storage_type(type, db_cursor):
+    list_header = set_file_header()
+    list_header.append('Storage_type')
+    list_of_records = logging_functions.get_fsg_id_by_storage_type(type, db_cursor)
+
+    if not list_of_records:
+        gui_windows.pop_up_window('error', 'storage type has no records')
+        return
+
+    list_entries_lists = [list(i) for i in list_of_records]
+    list_entries_lists = [list_header] + list_entries_lists
+
+    with open(f'fsg_by_{type}_temp.txt', 'w') as f:
+        for item in list_entries_lists:
+            f.write("%s\n" % item)
+    f.close()
+    file_formatter(f'fsg_by_{type}_temp', f'fsg_by_{type}')
+
+
+def get_fsg_id_by_storage_type_historic(type, db_cursor):
+    list_header = set_file_header()
+    list_header.append('Storage_type')
+    list_of_records = logging_functions.get_fsg_id_by_storage_type_historic(type, db_cursor)
+
+    if not list_of_records:
+        gui_windows.pop_up_window('error', 'storage type has no records')
+        return
+
+    list_entries_lists = [list(i) for i in list_of_records]
+    list_entries_lists = [list_header] + list_entries_lists
+
+    with open(f'fsg_by_{type}_temp.txt', 'w') as f:
+        for item in list_entries_lists:
+            f.write("%s\n" % item)
+    f.close()
+    file_formatter(f'fsg_by_{type}_temp', f'fsg_by_{type}_historic')
+
+
 def get_all_entries_historic(cursor):
     list_header = set_file_header()
     list_header.append('Storage_type')

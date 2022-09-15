@@ -55,6 +55,22 @@ def get_fsg_id_by_client_historic(client_id, cursor):
     return result
 
 
+def get_fsg_id_by_storage_type(storage_type, cursor):
+    storage_type = "'" + storage_type + "'"
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location,'
+                            f' addition_location_one, addition_location_two, storage_type'
+                            f' FROM founders_inventory WHERE (storage_type == {storage_type});').fetchall()
+    return result
+
+
+def get_fsg_id_by_storage_type_historic(storage_type, cursor):
+    storage_type = "'" + storage_type + "'"
+    result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location,'
+                            f' addition_location_one, addition_location_two, storage_type FROM founders_inventory '
+                            f'WHERE (storage_type == {storage_type} AND quantity > 0;').fetchall()
+    return result
+
+
 def get_audit_log_by_fsg_id(fsg_id, cursor):
     fsg_id = "'" + fsg_id + "'"
     result = cursor.execute(f'SELECT fsg_id_event_log FROM founders_inventory WHERE (fsg_id == {fsg_id});').fetchall()

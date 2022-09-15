@@ -121,6 +121,8 @@ def layout_logging_main_window():
          simpleGui.Button("Historic FSG_ID by client", size=(27, 1))],
         [simpleGui.Button("Get all entries", size=(27, 1)), simpleGui.Push(),
          simpleGui.Button("Get all entries historic", size=(27, 1))],
+        [simpleGui.Button("FSG_ID by Storage Type", size=(27, 1)), simpleGui.Push(),
+         simpleGui.Button("FSG_ID by Storage Type Historic", size=(27, 1))],
         [simpleGui.Push(), simpleGui.Button("History of FSG_ID"), simpleGui.Push()],
         [simpleGui.Push(), simpleGui.Button("Exit")]
     ]
@@ -141,6 +143,16 @@ def layout_get_client_id():
     layout = [
         [simpleGui.Text("Please enter a client_id")],
         [simpleGui.Text("Client: ", size=(15, 1)), simpleGui.InputText()],
+        [simpleGui.Submit(), simpleGui.Cancel()]
+    ]
+    return layout
+
+
+def layout_get_storage_type():
+    layout = [
+        [simpleGui.Text("Please enter a storage type")],
+        [simpleGui.Text("Storage Type: ", size=(15, 1)), simpleGui.Combo(['RETAIN', 'STABILITY', 'ANALYTICAL'],
+                                                                         default_value='Type', size=(15, 1))],
         [simpleGui.Submit(), simpleGui.Cancel()]
     ]
     return layout

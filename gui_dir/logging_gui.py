@@ -24,6 +24,10 @@ def logging_main_window():
             fsg_id_by_client_button()
         if event == "Historic FSG_ID by client":
             fsg_id_by_client_historic_button()
+        if event == "FSG_ID by Storage Type":
+            fsg_id_by_storage_type()
+        if event == "FSG_ID by Storage Type Historic":
+            fsg_id_by_storage_type_historic()
         if event == "Get all entries":
             get_all_entries_button()
         if event == "Get all entries historic":
@@ -33,6 +37,28 @@ def logging_main_window():
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break
     window.close()
+
+
+def fsg_id_by_storage_type():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    storage_type = gui_windows.get_storage_type()
+    if not storage_type:
+        gui_windows.pop_up_window("Error", "No record in storage")
+        return
+    logging_gui_buttons.get_fsg_id_by_storage_type(storage_type, db_cursor)
+    return
+
+
+def fsg_id_by_storage_type_historic():
+    location_of_db = database.db_location()
+    connection, db_cursor = database.open_db(location_of_db)
+    storage_type = gui_windows.get_storage_type()
+    if not storage_type:
+        gui_windows.pop_up_window("Error", "No record in storage")
+        return
+    logging_gui_buttons.get_fsg_id_by_storage_type_historic(storage_type, db_cursor)
+    return
 
 
 def get_all_entries_button():
