@@ -226,12 +226,12 @@ def get_storage_type():
     while True:
         event, values = window.read()
         if event == "Cancel":
-            event.close()
+            window.Close()
             return
         if event == "Submit":
             storage_type = values[0]
             storage_type = typechecking.force_caps(storage_type)
-            window.close()
+            window.Close()
             return storage_type
-        window.close()
+        window.Close()
         return

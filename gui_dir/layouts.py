@@ -24,7 +24,7 @@ def layout_entry_details():
     last_fsg_id = database_dir.database.get_last_fsg_id_from_table(db_cursor)
     layout = [
         [simpleGui.Text("Please enter an FSG ID"), simpleGui.Push(),
-         simpleGui.Text("Is this sample a retain or stability")],
+         simpleGui.Text("Storage Type")],
         [simpleGui.Text("FSG ID: ", size=(20, 1)), simpleGui.InputText(f'{last_fsg_id}', size=(15, 1)),
          simpleGui.Combo(['Retain', 'Stability', 'Analytical'], default_value='Storage Type', size=(15, 1))],
         [simpleGui.Text("What is the product")],
@@ -119,11 +119,11 @@ def layout_logging_main_window():
          simpleGui.Button("Historic FSG_ID in Storage Location", size=(27, 1))],
         [simpleGui.Button("FSG_ID by client", size=(27, 1)), simpleGui.Push(),
          simpleGui.Button("Historic FSG_ID by client", size=(27, 1))],
-        [simpleGui.Button("Get all entries", size=(27, 1)), simpleGui.Push(),
-         simpleGui.Button("Get all entries historic", size=(27, 1))],
         [simpleGui.Button("FSG_ID by Storage Type", size=(27, 1)), simpleGui.Push(),
-         simpleGui.Button("FSG_ID by Storage Type Historic", size=(27, 1))],
-        [simpleGui.Push(), simpleGui.Button("History of FSG_ID"), simpleGui.Push()],
+         simpleGui.Button("Historic FSG_ID by Storage Type", size=(27, 1))],
+        [simpleGui.Button("Get all entries", size=(27, 1)), simpleGui.Push(),
+         simpleGui.Button("Historic get all entries", size=(27, 1))],
+        [simpleGui.Push(), simpleGui.Button("History of an FSG_ID"), simpleGui.Push()],
         [simpleGui.Push(), simpleGui.Button("Exit")]
     ]
     return layout

@@ -77,7 +77,7 @@ def is_unit_correct(unit):
 def is_storage_type_correct(storage_type):
     acceptable_types = ['RETAIN', 'STABILITY', 'ANALYTICAL']
     if storage_type not in acceptable_types:
-        return False, "Storage type is invalid"
+        return False, "Storage type is invalid, "
     else:
         return True, ""
 
@@ -93,13 +93,6 @@ def is_entry_correct(fsg_id: str, storage_type, general_id, client_id, storage_l
     if not state:
         error_list = error_list + statement
 
-    acceptable_locations_with_na = storage_locations.set_acceptable_locations_with_na()
-    if addition_location_one not in acceptable_locations_with_na:
-        error_list = error_list + "Addition storage location one is invalid, "
-
-    if addition_location_two not in acceptable_locations_with_na:
-        error_list = error_list + "Addition storage location two is invalid, "
-
     if general_id == "":
         error_list = error_list + "Product ID is blank, "
 
@@ -109,6 +102,13 @@ def is_entry_correct(fsg_id: str, storage_type, general_id, client_id, storage_l
     state, statement = is_storage_location_correct(storage_location)
     if not state:
         error_list = error_list + statement
+
+    acceptable_locations_with_na = storage_locations.set_acceptable_locations_with_na()
+    if addition_location_one not in acceptable_locations_with_na:
+        error_list = error_list + "Addition storage location one is invalid, "
+
+    if addition_location_two not in acceptable_locations_with_na:
+        error_list = error_list + "Addition storage location two is invalid, "
 
     if description == "":
         error_list = error_list + "Description is blank, "

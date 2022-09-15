@@ -26,13 +26,13 @@ def logging_main_window():
             fsg_id_by_client_historic_button()
         if event == "FSG_ID by Storage Type":
             fsg_id_by_storage_type()
-        if event == "FSG_ID by Storage Type Historic":
+        if event == "Historic FSG_ID by Storage Type":
             fsg_id_by_storage_type_historic()
         if event == "Get all entries":
             get_all_entries_button()
-        if event == "Get all entries historic":
+        if event == "Historic get all entries":
             get_all_entries_historic_button()
-        if event == "History of FSG_ID":
+        if event == "History of an FSG_ID":
             fsg_id_dump()
         if event == "Exit" or event == simpleGui.WINDOW_CLOSED:
             break

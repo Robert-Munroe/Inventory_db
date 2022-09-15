@@ -42,8 +42,7 @@ def get_fsg_id_by_client(client_id, cursor):
     client_id = "'" + client_id + "'"
     result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location,'
                             f' addition_location_one, addition_location_two'
-                            f'FROM founders_inventory WHERE (client_id == {client_id}) AND quantity > 0;')\
-        .fetchall()
+                            f' FROM founders_inventory WHERE (client_id == {client_id}) AND quantity > 0;').fetchall()
     return result
 
 
@@ -67,7 +66,7 @@ def get_fsg_id_by_storage_type_historic(storage_type, cursor):
     storage_type = "'" + storage_type + "'"
     result = cursor.execute(f'SELECT fsg_id, product_id, client_id, quantity, aggregate_form, storage_location,'
                             f' addition_location_one, addition_location_two, storage_type FROM founders_inventory '
-                            f'WHERE (storage_type == {storage_type} AND quantity > 0;').fetchall()
+                            f'WHERE (storage_type == {storage_type}) AND quantity > 0;').fetchall()
     return result
 
 
