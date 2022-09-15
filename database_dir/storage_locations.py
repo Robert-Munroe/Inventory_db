@@ -1,7 +1,8 @@
 def set_acceptable_locations():
     acceptable_locations = [
+        'INC-0003', 'INC-0004', 'INC-0005', 'INC-0006',
         'F5S1', 'F5S2', 'F5S3', 'F5S4', 'F5S5',
-        'FRZ 3', 'STB 1',
+        'FRZ-0003',
         'F7R1S1BA', 'F7R1S1BB', 'F7R1S1BC', 'F7R1S1BD', 'F7R1S1BE',
         'F7R1S2BA', 'F7R1S2BB', 'F7R1S2BC', 'F7R1S2BD', 'F7R1S2BE', 'F7R1S2BF',
         'F7R1S3BA', 'F7R1S3BB', 'F7R1S3BC', 'F7R1S3BD', 'F7R1S3BE', 'F7R1S3BF',
@@ -23,8 +24,9 @@ def set_acceptable_locations():
 
 def set_acceptable_locations_with_na():
     acceptable_locations_with_na = [
+        'INC-0003', 'INC-0004', 'INC-0005', 'INC-0006',
         'F5S1', 'F5S2', 'F5S3', 'F5S4', 'F5S5',
-        'FRZ 3', 'STB 1',
+        'FRZ-0003',
         'F7R1S1BA', 'F7R1S1BB', 'F7R1S1BC', 'F7R1S1BD', 'F7R1S1BE',
         'F7R1S2BA', 'F7R1S2BB', 'F7R1S2BC', 'F7R1S2BD', 'F7R1S2BE', 'F7R1S2BF',
         'F7R1S3BA', 'F7R1S3BB', 'F7R1S3BC', 'F7R1S3BD', 'F7R1S3BE', 'F7R1S3BF',
