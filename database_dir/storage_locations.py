@@ -1,5 +1,6 @@
 def set_acceptable_locations():
     acceptable_locations = [
+        'LAB',
         'INC-0003', 'INC-0004', 'INC-0005', 'INC-0006',
         'F5S1', 'F5S2', 'F5S3', 'F5S4', 'F5S5',
         'FRZ-0003',
@@ -24,6 +25,7 @@ def set_acceptable_locations():
 
 def set_acceptable_locations_with_na():
     acceptable_locations_with_na = [
+        'LAB',
         'INC-0003', 'INC-0004', 'INC-0005', 'INC-0006',
         'F5S1', 'F5S2', 'F5S3', 'F5S4', 'F5S5',
         'FRZ-0003',

@@ -75,7 +75,7 @@ def is_unit_correct(unit):
 
 
 def is_storage_type_correct(storage_type):
-    acceptable_types = ['RETAIN', 'STABILITY']
+    acceptable_types = ['RETAIN', 'STABILITY', 'ANALYTICAL']
     if storage_type not in acceptable_types:
         return False, "Storage type is invalid"
     else:

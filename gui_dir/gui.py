@@ -58,7 +58,7 @@ def update_an_fsg_id_button(initials):
     connection, db_cursor = database.open_db(location_of_db)
     acceptable_locations = storage_locations.set_acceptable_locations()
     acceptable_locations_with_na = storage_locations.set_acceptable_locations_with_na()
-    acceptable_storage_types = ['RETAIN', 'STABILITY']
+    acceptable_storage_types = ['RETAIN', 'STABILITY', 'ANALYTICAL']
     fsg_id = gui_windows.get_fsg_id()
     fsg_id = entrybuilder.ask_for_fsg_id_allow_duplicate(fsg_id)
 
