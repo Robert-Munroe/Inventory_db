@@ -44,6 +44,7 @@ def get_entry_details(initials):
         if event == "Submit":
             fsg_id = values[0]
             fsg_id = fsg_id.replace("s", "S")
+            fsg_id = fsg_id.replace("r", "R")
             storage_type = values[1]
             storage_type = typechecking.force_caps(storage_type)
             product_id = values[2]
