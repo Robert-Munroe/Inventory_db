@@ -82,8 +82,16 @@ def is_storage_type_correct(storage_type):
         return True, ""
 
 
-def is_entry_correct(fsg_id: str, storage_type, general_id, client_id, storage_location, addition_location_one,
-                     addition_location_two, description, quantity, unit):
+def is_storage_position_correct(storage_position):
+    acceptable_storage_positions = storage_locations.set_acceptable_storage_positions()
+    if storage_position not in acceptable_storage_positions:
+        return False, "Storage position is invalid, "
+    else:
+        return True, ""
+
+
+def is_entry_correct(fsg_id: str, storage_type, general_id, storage_position, client_id, storage_location,
+                     addition_location_one, addition_location_two, description, quantity, unit):
     error_list = ""
     state, statement = is_fsg_id_correct(fsg_id)
     if not state:
@@ -95,6 +103,10 @@ def is_entry_correct(fsg_id: str, storage_type, general_id, client_id, storage_l
 
     if general_id == "":
         error_list = error_list + "Product ID is blank, "
+
+    state, statement = is_storage_position_correct(storage_position)
+    if not state:
+        error_list = error_list + statement
 
     if client_id == "":
         error_list = error_list + "Client ID is blank, "

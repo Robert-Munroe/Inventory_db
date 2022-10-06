@@ -19,6 +19,7 @@ def layout_main_window():
 def layout_entry_details():
     storage_location_menu = storage_locations.set_acceptable_locations()
     storage_location_menu_with_na = storage_locations.set_acceptable_locations_with_na()
+    acceptable_storage_positions = storage_locations.set_acceptable_storage_positions()
     location_of_db = database_dir.database.db_location()
     connection, db_cursor = database_dir.database.open_db(location_of_db)
     last_fsg_id = database_dir.database.get_last_fsg_id_from_table(db_cursor)
@@ -27,8 +28,9 @@ def layout_entry_details():
          simpleGui.Text("Storage Type")],
         [simpleGui.Text("FSG ID: ", size=(20, 1)), simpleGui.InputText(f'{last_fsg_id}', size=(15, 1)),
          simpleGui.Combo(['Retain', 'Stability', 'Analytical'], default_value='Storage Type', size=(15, 1))],
-        [simpleGui.Text("What is the product")],
-        [simpleGui.Text("Product: ", size=(20, 1)), simpleGui.InputText(size=(15, 1))],
+        [simpleGui.Text("What is the product"), simpleGui.Push(), simpleGui.Text("Sample Position")],
+        [simpleGui.Text("Product: ", size=(20, 1)), simpleGui.InputText(size=(15, 1)),
+         simpleGui.Combo(acceptable_storage_positions, default_value='Position', size=(15, 1))],
         [simpleGui.Text("Who is the client")],
         [simpleGui.Text("Client: ", size=(20, 1)), simpleGui.InputText(size=(15, 1))],
         [simpleGui.Text("Please enter a storage location")],
@@ -66,11 +68,12 @@ def layout_pop_up_window(attribute):
 def layout_view_sample_info(fsg_id):
     layout = [
         [simpleGui.Text(f"FSG ID is: {fsg_id[0]}")],
-        [simpleGui.Text(f"Product is: {fsg_id[1]}")],
-        [simpleGui.Text(f"Storage Location is: {fsg_id[2]}")],
-        [simpleGui.Text(f"Alternative storage locations are: {fsg_id[3]}, {fsg_id[4]}")],
-        [simpleGui.Text(f"Description of container is: {fsg_id[5]}")],
-        [simpleGui.Text(f"{fsg_id[6]} {fsg_id[7]}")]
+        [simpleGui.Text(f"Product is: {fsg_id[1]}"), simpleGui.Push(),
+         simpleGui.Text(f"Store product in {fsg_id[2]} position")],
+        [simpleGui.Text(f"Storage Location is: {fsg_id[3]}")],
+        [simpleGui.Text(f"Alternative storage locations are: {fsg_id[4]}, {fsg_id[5]}")],
+        [simpleGui.Text(f"Description of container is: {fsg_id[6]}")],
+        [simpleGui.Text(f"{fsg_id[7]} {fsg_id[8]}")]
     ]
     return layout
 

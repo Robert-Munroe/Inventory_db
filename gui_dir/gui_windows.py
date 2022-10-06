@@ -30,6 +30,7 @@ def get_entry_details(initials):
             fsg_id = "error"
             storage_type = ""
             product_id = ""
+            storage_position = ""
             client_id = ""
             storage_location = ""
             addition_storage_location_one = ""
@@ -38,8 +39,9 @@ def get_entry_details(initials):
             quantity = ""
             aggregate_form = ""
             fsg_id_event_log = ""
-            return fsg_id, storage_type, product_id, client_id, storage_location, addition_storage_location_one, \
-                addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
+            return fsg_id, storage_type, product_id, storage_position, client_id, storage_location, \
+                addition_storage_location_one, addition_storage_location_two, container_description, quantity, \
+                aggregate_form, fsg_id_event_log
 
         if event == "Submit":
             fsg_id = values[0]
@@ -49,23 +51,26 @@ def get_entry_details(initials):
             storage_type = typechecking.force_caps(storage_type)
             product_id = values[2]
             product_id = typechecking.force_caps(product_id)
-            client_id = values[3]
+            storage_position = values[3]
+            client_id = values[4]
             client_id = typechecking.force_caps(client_id)
-            storage_location = values[4]
+            storage_location = values[5]
             storage_location = typechecking.force_caps(storage_location)
-            additional_storage_location_one = values[5]
-            additional_storage_location_two = values[6]
-            container_description = values[7]
-            quantity = values[8]
-            aggregate_form = values[9]
+            additional_storage_location_one = values[6]
+            additional_storage_location_two = values[7]
+            container_description = values[8]
+            quantity = values[9]
+            aggregate_form = values[10]
             fsg_id_event_log = \
-                current_time + " " + initials + " " + str(values[8]) + " " + values[9] + " " + " FSG ID created,"
+                current_time + " " + initials + " " + str(values[9]) + " " + values[10] + " " + " FSG ID created,"
             window.close()
-            return fsg_id, storage_type, product_id, client_id, storage_location, additional_storage_location_one, \
-                additional_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
+            return fsg_id, storage_type, product_id, storage_position, client_id, storage_location, \
+                additional_storage_location_one, additional_storage_location_two, container_description, quantity, \
+                aggregate_form, fsg_id_event_log
         fsg_id = "error"
         storage_type = ""
         product_id = ""
+        storage_position = ""
         client_id = ""
         storage_location = ""
         addition_storage_location_one = ""
@@ -74,8 +79,9 @@ def get_entry_details(initials):
         quantity = ""
         aggregate_form = ""
         fsg_id_event_log = ""
-        return fsg_id, storage_type, product_id, client_id, storage_location, addition_storage_location_one, \
-            addition_storage_location_two, container_description, quantity, aggregate_form, fsg_id_event_log
+        return fsg_id, storage_type, product_id, storage_position, client_id, storage_location, \
+            addition_storage_location_one, addition_storage_location_two, container_description, quantity, \
+            aggregate_form, fsg_id_event_log
 
 
 def invalid_entry_window(error_list):

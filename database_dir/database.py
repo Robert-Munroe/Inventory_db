@@ -33,6 +33,7 @@ def create_inventory_table(cursor: sqlite3.Cursor):
     fsg_id TEXT PRIMARY KEY,
     storage_type TEXT DEFAULT NULL,
     product_id TEXT DEFAULT NULL,
+    storage_position DEFAULT NULL,
     client_id TEXT DEFAULT NULL,
     storage_location TEXT DEFAULT NULL,
     addition_location_one TEXT DEFAULT NULL,
@@ -50,9 +51,9 @@ def create_table(cursor: sqlite3.Cursor):
 
 
 def insert_into_inventory_table(cursor: sqlite3.Cursor, connection, entry_to_insert):
-    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, storage_type, product_id, client_id, storage_location,
-     addition_location_one, addition_location_two, container_description, quantity, aggregate_form, fsg_id_event_log)
-     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
+    cursor.executemany('''INSERT INTO founders_inventory(fsg_id, storage_type, product_id, storage_position, client_id,
+     storage_location, addition_location_one, addition_location_two, container_description, quantity, aggregate_form, 
+     fsg_id_event_log) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (entry_to_insert,))
     connection.commit()
 
 
@@ -134,12 +135,13 @@ def get_product_info(cursor: sqlite3.Cursor, fsg_id):
     for row in result:
         product_info.append(row[0])
         product_info.append(row[2])
-        product_info.append(row[4])
+        product_info.append(row[3])
         product_info.append(row[5])
         product_info.append(row[6])
         product_info.append(row[7])
         product_info.append(row[8])
         product_info.append(row[9])
+        product_info.append(row[10])
     return product_info
 
 

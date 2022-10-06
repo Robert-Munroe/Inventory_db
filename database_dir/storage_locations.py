@@ -47,3 +47,8 @@ def set_acceptable_locations_with_na():
         "N/A"
     ]
     return acceptable_locations_with_na
+
+
+def set_acceptable_storage_positions():
+    acceptable_storage_positions = ['Upright', 'Horizontal', 'Inverted', 'N/A']
+    return acceptable_storage_positions
